@@ -592,7 +592,7 @@
 ## 参考资料
 
 - [Runner's World Injury Prevention](https://www.runnersworld.com/health-injuries/)
-- [Running Injury Clinic](https://runninginjuryclinic.com/)
+- [Healthline: Running Injuries Guide](https://www.healthline.com/health/running-injuries)
 
 *上一篇：[跑前热身与跑后拉伸](/strength/10-warmup-stretch)*
 *下一篇：[伤病预防策略](./12-prevention)*
