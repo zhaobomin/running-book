@@ -195,8 +195,10 @@ def main():
         if not tasks:
             log("任务列表为空，生成新任务...")
             
-            log("执行: claude -p --dangerously-skip-permissions \"\"")
-            output = run_claude("")
+            # 提供具体的任务生成提示
+            prompt = "请为跑步指南书籍生成优化任务，包括但不限于：\n1. 内容审核与优化\n2. 格式规范检查\n3. 内容扩展与补充\n4. 数据和研究引用\n5. 语言表达优化\n6. 新内容添加\n\n请以列表形式输出具体任务。"
+            log("执行: claude -p --dangerously-skip-permissions \"生成跑步指南优化任务\"")
+            output = run_claude(prompt)
             
             new_tasks = extract_tasks(output)
             
