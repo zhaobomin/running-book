@@ -103,7 +103,41 @@ def run_claude(prompt):
 """
         
         full_prompt = system_prompt + prompt
-        cmd = ["claude", "-p", "--dangerously-skip-permissions", full_prompt]
+        
+        # 检查是否为 root 用户
+        import os
+        is_root = os.geteuid() == 0
+        
+        if is_root:
+            # 尝试切换到普通用户运行
+            log("检测到 root 权限，尝试切换到普通用户运行 claude")
+            try:
+                # 尝试获取当前登录用户
+                import pwd
+                import os
+                
+                # 尝试使用 SUDO_USER 环境变量
+                sudo_user = os.environ.get('SUDO_USER')
+                if not sudo_user:
+                    # 尝试获取第一个非 root 用户
+                    for p in pwd.getpwall():
+                        if p.pw_uid > 1000 and p.pw_shell not in ['/sbin/nologin', '/bin/false']:
+                            sudo_user = p.pw_name
+                            break
+                
+                if sudo_user:
+                    log(f"切换到用户 {sudo_user} 运行 claude")
+                    cmd = ["sudo", "-u", sudo_user, "claude", "-p", "--dangerously-skip-permissions", full_prompt]
+                else:
+                    log("警告：无法找到合适的普通用户，尝试不使用 --dangerously-skip-permissions")
+                    cmd = ["claude", "-p", full_prompt]
+            except Exception as e:
+                log(f"切换用户失败: {e}，尝试不使用 --dangerously-skip-permissions")
+                cmd = ["claude", "-p", full_prompt]
+        else:
+            # 非 root 用户，正常运行
+            cmd = ["claude", "-p", "--dangerously-skip-permissions", full_prompt]
+        
         result = subprocess.run(cmd, capture_output=True, text=True, encoding="utf-8")
         return result.stdout + result.stderr
     except Exception as e:

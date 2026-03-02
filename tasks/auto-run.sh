@@ -205,8 +205,31 @@ main() {
 "
         
         local full_prompt="$system_prompt$task"
-        log "执行命令: claude -p --dangerously-skip-permissions \"$task\""
-        output=$(claude -p --dangerously-skip-permissions "$full_prompt" 2>&1)
+        
+        # 检查是否为 root 用户
+        if [ "$(id -u)" -eq 0 ]; then
+            log "检测到 root 权限，尝试切换到普通用户运行 claude"
+            
+            # 尝试获取 SUDO_USER
+            local sudo_user="$SUDO_USER"
+            if [ -z "$sudo_user" ]; then
+                # 尝试获取第一个非 root 用户
+                sudo_user=$(grep -E '^[a-zA-Z0-9_]+:' /etc/passwd | grep -v 'nologin' | grep -v 'false' | awk -F: '$3 > 1000 {print $1}' | head -1)
+            fi
+            
+            if [ -n "$sudo_user" ]; then
+                log "切换到用户 $sudo_user 运行 claude"
+                log "执行命令: sudo -u $sudo_user claude -p --dangerously-skip-permissions \"$task\""
+                output=$(sudo -u "$sudo_user" claude -p --dangerously-skip-permissions "$full_prompt" 2>&1)
+            else
+                log "警告：无法找到合适的普通用户，尝试不使用 --dangerously-skip-permissions"
+                log "执行命令: claude -p \"$task\""
+                output=$(claude -p "$full_prompt" 2>&1)
+            fi
+        else
+            log "执行命令: claude -p --dangerously-skip-permissions \"$task\""
+            output=$(claude -p --dangerously-skip-permissions "$full_prompt" 2>&1)
+        fi
         echo "$output" >> "$LOG_FILE"
         
         new_tasks=$(extract_tasks "$output")
