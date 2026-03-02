@@ -1,5 +1,9 @@
 [
-  "\" 修复 newbalance.com/goodformrunning.html 链接（403错误）\"",
+  "\"  - `docs/technique/05-posture.md`\"",
+  "\"  - `contents/running/05-正确的跑步姿势.md`\",",
+  "\" 更新文件：\",",
+  "\" 新链接：`https://chiliving.com/` (可正常访问)\",",
+  "\" 原链接：`https://www.chirunning.com/` (TLS连接失败)\",",
   "\" 修复 chirunning.com 链接（TLS连接失败）\",",
   "\" 检查项目中是否有其他需要更新的重定向链接\",",
   "\" 新链接更具针对性，更适合作为跑步呼吸技巧章节的参考资料\",",
