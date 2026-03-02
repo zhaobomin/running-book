@@ -689,3 +689,53 @@ and the repository exists.
 [2026-03-02 14:30:33] 提取到新任务，插入到任务列表头部
 [2026-03-02 14:30:33] 检查 git 变更...
 [2026-03-02 14:30:33] 执行: git add .
+[2026-03-02 14:30:33] 执行: git commit -m "update: " 验证更新后的链接是否可正常访问""
+[2026-03-02 14:30:33] 执行: git push
+[2026-03-02 14:30:37] Git 操作完成
+[2026-03-02 14:30:37] 任务完成，剩余任务数: 61
+[2026-03-02 14:30:37] 执行: git pull
+[2026-03-02 14:30:41] Git pull 失败，检查是否有冲突...
+[2026-03-02 14:30:41] Git pull 失败，可能是其他原因
+[2026-03-02 14:30:41] 执行任务: " 检查项目中是否有其他需要更新的重定向链接",
+[2026-03-02 14:30:41] 执行命令: claude -p --dangerously-skip-permissions "" 检查项目中是否有其他需要更新的重定向链接","
+## 检查完成总结
+
+我已检查了项目中所有外部参考链接的重定向情况，并更新了以下需要修复的链接：
+
+### 已更新的重定向链接
+
+| 文件 | 原链接 | 新链接 | 原因 |
+|------|--------|--------|------|
+| `01-新手入门训练计划.md` | `https://www.acsm.org/` | `https://acsm.org/` | 网站重定向（移除www） |
+| `01-新手入门训练计划.md` | `https://www.nhs.uk/live-well/exercise/couch-to-5k-week-by-week/` | `https://www.nhs.uk/better-health/get-active/` | 页面已迁移到新地址 |
+| `08-跑者核心训练.md` | `https://www.coreperformance.com/` | `https://www.teamexos.com/` | 网站已迁移到新域名 |
+
+### 已验证有效的链接
+
+- runnersworld.com 系列链接 - 正常工作
+- halhigdon.com 系列链接 - 正常工作
+- active.com - 正常工作
+- strengthrunning.com - 正常工作
+- runnersconnect.net - 正常工作
+- us.humankinetics.com - 正常工作
+- teamexos.com - 正常工作
+- posemethod.com - 正常工作
+- ncbi.nlm.nih.gov - 正常工作
+
+### 仍需注意的链接（之前已标记）
+
+- chirunning.com - TLS 连接问题
+- newbalance.com/goodformrunning.html - 403 禁止访问
+- runninginjuryclinic.com - 页面内容为空
+
+---
+
+**后续子任务：**
+
+- 修复 chirunning.com 链接（TLS连接失败）
+- 修复 newbalance.com/goodformrunning.html 链接（403错误）
+- 修复 runninginjuryclinic.com 链接（页面为空）
+- 验证更新后的链接是否可正常访问
+[2026-03-02 14:37:04] 提取到新任务，插入到任务列表头部
+[2026-03-02 14:37:04] 检查 git 变更...
+[2026-03-02 14:37:04] 执行: git add .
