@@ -877,3 +877,59 @@ and the repository exists.
 [2026-03-02 14:51:51] 提取到新任务，插入到任务列表头部
 [2026-03-02 14:51:51] 检查 git 变更...
 [2026-03-02 14:51:51] 执行: git add .
+[2026-03-02 14:51:51] 执行: git commit -m "update: " 全书内容校对（错别字、标点符号）""
+[2026-03-02 14:51:51] 执行: git push
+[2026-03-02 14:51:55] Git 操作完成
+[2026-03-02 14:51:55] 任务完成，剩余任务数: 64
+[2026-03-02 14:51:55] 执行: git pull
+[2026-03-02 14:52:02] Git pull 失败，检查是否有冲突...
+[2026-03-02 14:52:02] Git pull 失败，可能是其他原因
+[2026-03-02 14:52:02] 执行任务: " 检查所有外部链接的有效性",
+[2026-03-02 14:52:02] 执行命令: claude -p --dangerously-skip-permissions "" 检查所有外部链接的有效性","
+## 外部链接检查完成
+
+### 检查结果汇总
+
+共检查了 **24个唯一外部链接**，发现以下问题：
+
+| 问题链接 | 状态 | 处理方式 |
+|---------|------|---------|
+| `velopress.com` | ❌ SSL/TLS连接失败 | 更换为 Human Kinetics 官方链接 |
+| `runnersworld.com/half-marathon/` | ⚠️ 301重定向 | 更新为新地址 |
+| `nhs.uk/live-well/exercise/couch-to-5k-week-by-week/` | ⚠️ 301重定向 | 更新为新地址 |
+| `runnersconnect.net` | ⚠️ SSL证书问题 | 保留（网站可访问） |
+
+### 已修复的文件
+
+**docs/ 目录：**
+- `docs/training/01-beginner.md` - NHS C25K 链接
+- `docs/training/02-5k-10k.md` - Jack Daniels 书籍链接
+- `docs/training/03-half-marathon.md` - Runner's World 半马 + Jack Daniels 链接
+- `docs/training/04-full-marathon.md` - Jack Daniels + Advanced Marathoning 链接
+- `docs/technique/06-cadence.md` - Jack Daniels 链接
+
+**contents/ 目录：**
+- `contents/running/02-5k-10k训练方案.md` - Jack Daniels 链接
+- `contents/running/03-半马训练指南.md` - Runner's World 半马 + Jack Daniels 链接
+- `contents/running/04-全马训练指南.md` - Jack Daniels + Advanced Marathoning 链接
+- `contents/running/06-步频与步幅.md` - Jack Daniels 链接
+
+### 链接更新详情
+
+| 原链接 | 新链接 |
+|-------|-------|
+| `velopress.com/books/daniels-running-formula-3rd-edition/` | `us.humankinetics.com/products/daniels-running-formula-4th-edition` |
+| `velopress.com/books/advanced-marathoning-3rd-edition/` | `us.humankinetics.com/products/advanced-marathoning-3rd-edition` |
+| `runnersworld.com/half-marathon/` | `runnersworld.com/g30911399/half-marathon/` |
+| `nhs.uk/live-well/exercise/couch-to-5k-week-by-week/` | `nhs.uk/better-health/get-active/` |
+
+---
+
+## 后续任务
+
+- 提交本次链接修复的更改
+- 检查 `runnersconnect.net` 的SSL证书问题是否需要更换替代链接
+- 定期复查外部链接有效性（建议每月一次）
+[2026-03-02 14:59:36] 提取到新任务，插入到任务列表头部
+[2026-03-02 14:59:36] 检查 git 变更...
+[2026-03-02 14:59:36] 执行: git add .

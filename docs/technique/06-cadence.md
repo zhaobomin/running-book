@@ -456,7 +456,7 @@
 
 ## 参考资料
 
-- [Jack Daniels' Running Formula](https://www.velopress.com/books/daniels-running-formula-3rd-edition/)
+- [Jack Daniels' Running Formula](https://us.humankinetics.com/products/daniels-running-formula-4th-edition)
 - [Running Cadence Research](https://www.ncbi.nlm.nih.gov/)
 
 *上一篇：[正确的跑步姿势](./05-posture)*
