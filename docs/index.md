@@ -10,17 +10,26 @@ hero:
       text: 开始阅读
       link: /guide/
     - theme: alt
-      text: GitHub
-      link: https://github.com/yourusername/running-book
+      text: 训练计划
+      link: /training/
 
 features:
+  - icon: 📋
+    title: 训练计划
+    details: 从零基础到马拉松的完整训练方案，循序渐进提升跑步能力
   - icon: 🏃
-    title: 科学训练
-    details: 基于运动科学的训练方法，帮助你避免伤病，稳步提升
-  - icon: 📊
-    title: 数据驱动
-    details: 学会使用心率、配速等数据指导训练
-  - icon: 🎯
-    title: 目标导向
-    details: 从5K到马拉松，循序渐进的训练计划
+    title: 跑步技术
+    details: 正确的跑步姿势、步频步幅、呼吸技巧，让跑步更高效
+  - icon: �
+    title: 力量训练
+    details: 核心训练、下肢力量、热身拉伸，打造跑者强健体魄
+  - icon: 🛡️
+    title: 伤病预防
+    details: 常见伤病识别与预防，膝盖保护策略，跑得更久更健康
+  - icon: 🥗
+    title: 营养恢复
+    details: 跑者饮食指南、长距离补给策略、恢复与睡眠优化
+  - icon: 🚀
+    title: 进阶话题
+    details: 速度训练、心率训练、比赛策略，突破个人极限
 ---
