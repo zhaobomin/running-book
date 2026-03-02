@@ -1,0 +1,30 @@
+{"type":"thread.started","thread_id":"019cae72-bb32-7ed1-b6c6-df8a81e3da98"}
+{"type":"turn.started"}
+{"type":"error","message":"Reconnecting... 1/5 (stream disconnected before completion: error sending request for url (https://chatgpt.com/backend-api/codex/responses))"}
+{"type":"error","message":"Reconnecting... 2/5 (stream disconnected before completion: error sending request for url (https://chatgpt.com/backend-api/codex/responses))"}
+{"type":"error","message":"Reconnecting... 3/5 (stream disconnected before completion: error sending request for url (https://chatgpt.com/backend-api/codex/responses))"}
+{"type":"error","message":"Reconnecting... 4/5 (stream disconnected before completion: error sending request for url (https://chatgpt.com/backend-api/codex/responses))"}
+{"type":"error","message":"Reconnecting... 5/5 (stream disconnected before completion: error sending request for url (https://chatgpt.com/backend-api/codex/responses))"}
+{"type":"error","message":"stream disconnected before completion: error sending request for url (https://chatgpt.com/backend-api/codex/responses)"}
+{"type":"turn.failed","error":{"message":"stream disconnected before completion: error sending request for url (https://chatgpt.com/backend-api/codex/responses)"}}
+{"type":"error","message":"Failed to shutdown rollout recorder"}
+{"type":"thread.started","thread_id":"019cae73-2ebc-7c13-b5f7-56b15bf6d107"}
+{"type":"turn.started"}
+{"type":"error","message":"Reconnecting... 1/5 (stream disconnected before completion: error sending request for url (https://chatgpt.com/backend-api/codex/responses))"}
+{"type":"error","message":"Reconnecting... 2/5 (stream disconnected before completion: error sending request for url (https://chatgpt.com/backend-api/codex/responses))"}
+{"type":"error","message":"Reconnecting... 3/5 (stream disconnected before completion: error sending request for url (https://chatgpt.com/backend-api/codex/responses))"}
+{"type":"error","message":"Reconnecting... 4/5 (stream disconnected before completion: error sending request for url (https://chatgpt.com/backend-api/codex/responses))"}
+{"type":"error","message":"Reconnecting... 5/5 (stream disconnected before completion: error sending request for url (https://chatgpt.com/backend-api/codex/responses))"}
+{"type":"error","message":"stream disconnected before completion: error sending request for url (https://chatgpt.com/backend-api/codex/responses)"}
+{"type":"turn.failed","error":{"message":"stream disconnected before completion: error sending request for url (https://chatgpt.com/backend-api/codex/responses)"}}
+{"type":"error","message":"Failed to shutdown rollout recorder"}
+{"type":"thread.started","thread_id":"019cae73-a1de-7bd0-8d6b-b78065f04c98"}
+{"type":"turn.started"}
+{"type":"error","message":"Reconnecting... 1/5 (stream disconnected before completion: error sending request for url (https://chatgpt.com/backend-api/codex/responses))"}
+{"type":"error","message":"Reconnecting... 2/5 (stream disconnected before completion: error sending request for url (https://chatgpt.com/backend-api/codex/responses))"}
+{"type":"error","message":"Reconnecting... 3/5 (stream disconnected before completion: error sending request for url (https://chatgpt.com/backend-api/codex/responses))"}
+{"type":"error","message":"Reconnecting... 4/5 (stream disconnected before completion: error sending request for url (https://chatgpt.com/backend-api/codex/responses))"}
+{"type":"error","message":"Reconnecting... 5/5 (stream disconnected before completion: error sending request for url (https://chatgpt.com/backend-api/codex/responses))"}
+{"type":"error","message":"stream disconnected before completion: error sending request for url (https://chatgpt.com/backend-api/codex/responses)"}
+{"type":"turn.failed","error":{"message":"stream disconnected before completion: error sending request for url (https://chatgpt.com/backend-api/codex/responses)"}}
+{"type":"error","message":"Failed to shutdown rollout recorder"}
