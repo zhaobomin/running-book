@@ -933,3 +933,38 @@ and the repository exists.
 [2026-03-02 14:59:36] 提取到新任务，插入到任务列表头部
 [2026-03-02 14:59:36] 检查 git 变更...
 [2026-03-02 14:59:36] 执行: git add .
+[2026-03-02 14:59:36] 执行: git commit -m "update: " 定期复查外部链接有效性（建议每月一次）""
+[2026-03-02 14:59:36] 执行: git push
+[2026-03-02 14:59:39] Git 操作完成
+[2026-03-02 14:59:39] 任务完成，剩余任务数: 75
+[2026-03-02 14:59:39] 执行: git pull
+[2026-03-02 14:59:43] Git pull 失败，检查是否有冲突...
+[2026-03-02 14:59:43] Git pull 失败，可能是其他原因
+[2026-03-02 14:59:43] 执行任务: " 检查 `runnersconnect.net` 的SSL证书问题是否需要更换替代链接",
+[2026-03-02 14:59:43] 执行命令: claude -p --dangerously-skip-permissions "" 检查 `runnersconnect.net` 的SSL证书问题是否需要更换替代链接","
+## 任务完成
+
+**检查结果：**
+- ✅ `runnersconnect.net` SSL证书已更新（有效期：2026-03-01 至 2026-05-30）
+- ✅ 网站 HTTPS 连接正常
+- ✅ 内容仍与跑步力量训练相关（训练计划、营养指导、受伤预防等）
+- **结论：无需更换链接，问题已被网站方修复**
+
+已从任务列表中移除该项。
+
+---
+
+**后续子任务列表：**
+- 提交本次链接修复的更改
+- `contents/running/06-步频与步幅.md` - Jack Daniels 链接
+- `contents/running/04-全马训练指南.md` - Jack Daniels + Advanced Marathoning 链接
+- `contents/running/03-半马训练指南.md` - Runner's World 半马 + Jack Daniels 链接
+- `contents/running/02-5k-10k训练方案.md` - Jack Daniels 链接
+- `docs/technique/06-cadence.md` - Jack Daniels 链接
+- `docs/training/04-full-marathon.md` - Jack Daniels + Advanced Marathoning 链接
+- `docs/training/03-half-marathon.md` - Runner's World 半马 + Jack Daniels 链接
+- `docs/training/02-5k-10k.md` - Jack Daniels 书籍链接
+- `docs/training/01-beginner.md` - NHS C25K 链接
+[2026-03-02 15:00:58] 提取到新任务，插入到任务列表头部
+[2026-03-02 15:00:58] 检查 git 变更...
+[2026-03-02 15:00:58] 执行: git add .
