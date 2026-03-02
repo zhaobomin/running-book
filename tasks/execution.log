@@ -1075,3 +1075,46 @@ and the repository exists.
 [2026-03-02 15:05:07] 提取到新任务，插入到任务列表头部
 [2026-03-02 15:05:07] 检查 git 变更...
 [2026-03-02 15:05:07] 执行: git add .
+[2026-03-02 15:05:07] 执行: git commit -m "update: " 检查 `docs/technique/06-cadence.md` - Jack Daniels..."
+[2026-03-02 15:05:07] 执行: git push
+[2026-03-02 15:05:10] Git 操作完成
+[2026-03-02 15:05:10] 任务完成，剩余任务数: 111
+[2026-03-02 15:05:10] 执行: git pull
+[2026-03-02 15:05:13] Git pull 失败，检查是否有冲突...
+[2026-03-02 15:05:13] Git pull 失败，可能是其他原因
+[2026-03-02 15:05:13] 执行任务: " 检查 `docs/training/04-full-marathon.md` - Jack Daniels + Advanced Marathoning 链接",
+[2026-03-02 15:05:13] 执行命令: claude -p --dangerously-skip-permissions "" 检查 `docs/training/04-full-marathon.md` - Jack Daniels + Advanced Marathoning 链接","
+检查完成。以下是链接验证结果：
+
+## 链接检查结果
+
+### 1. Jack Daniels Running Formula
+- **状态**: ✅ 有效
+- **URL**: https://us.humankinetics.com/products/daniels-running-formula-4th-edition
+- **页面显示**: Daniels' Running Formula 第4版，作者 Jack Daniels
+- **价格**: $24.95（纸质版）/$18.95（电子版）
+
+### 2. Advanced Marathoning
+- **状态**: ✅ 有效，但需更新
+- **URL**: https://us.humankinetics.com/products/advanced-marathoning-3rd-edition
+- **问题**: 页面显示的是**第4版**（©2026，即将发布），而非第3版
+- **建议**: 更新链接文本为"进阶马拉松训练指南（第4版）"，或确认是否需要更新URL
+
+---
+
+## 建议更新
+
+文件中第610行的描述需要更新：
+
+```markdown
+# 当前（第3版描述）
+- [Pete Pfitzinger Advanced Marathoning](https://us.humankinetics.com/products/advanced-marathoning-3rd-edition) - 进阶马拉松训练指南
+
+# 建议更新为（第4版描述）
+- [Pete Pfitzinger Advanced Marathoning](https://us.humankinetics.com/products/advanced-marathoning-3rd-edition) - 进阶马拉松训练指南（第4版，2026年新版）
+```
+
+是否需要我更新这个链接描述？
+[2026-03-02 15:06:15] 提取到新任务，插入到任务列表头部
+[2026-03-02 15:06:16] 检查 git 变更...
+[2026-03-02 15:06:16] 执行: git add .
