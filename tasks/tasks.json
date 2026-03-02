@@ -1,5 +1,6 @@
 [
-  "\" 手动验证 runnersworld.com 和 velopress.com 相关链接是否可访问\"",
+  "\" 验证更新后的链接是否可正常访问\"",
+  "\" 检查项目中是否有其他需要更新的重定向链接\",",
   "\" 更新 humankinetics.com 重定向链接\",",
   "\" 更新 coreperformance.com 重定向链接\",",
   "\" 修复 runninginjuryclinic.com 链接（页面为空）\",",
