@@ -545,7 +545,7 @@
 
 ## 参考资料
 
-- [Core Performance Run](https://www.coreperformance.com/)
+- [Exos Performance Training](https://www.teamexos.com/)
 - [Runner's World Core Exercises](https://www.runnersworld.com/training/)
 
 *上一篇：[呼吸技巧](/technique/07-breathing)*
