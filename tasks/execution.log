@@ -1040,3 +1040,38 @@ and the repository exists.
 [2026-03-02 15:02:40] 提取到新任务，插入到任务列表头部
 [2026-03-02 15:02:40] 检查 git 变更...
 [2026-03-02 15:02:40] 执行: git add .
+[2026-03-02 15:02:40] 执行: git commit -m "update: " 检查 `contents/running/02-5k-10k训练方案.md` - Jack Da..."
+[2026-03-02 15:02:40] 执行: git push
+[2026-03-02 15:02:47] Git 操作完成
+[2026-03-02 15:02:47] 任务完成，剩余任务数: 107
+[2026-03-02 15:02:47] 执行: git pull
+[2026-03-02 15:02:52] Git pull 失败，检查是否有冲突...
+[2026-03-02 15:02:52] Git pull 失败，可能是其他原因
+[2026-03-02 15:02:52] 执行任务: " 检查 `contents/running/03-半马训练指南.md` - Runner's World 半马 + Jack Daniels 链接",
+[2026-03-02 15:02:52] 执行命令: claude -p --dangerously-skip-permissions "" 检查 `contents/running/03-半马训练指南.md` - Runner's World 半马 + Jack Daniels 链接","
+[2026-03-02 15:05:XX] 检查完成，两个外部链接均有效：
+  - Runner's World 半马专题 (https://www.runnersworld.com/g30911399/half-marathon/) - HTTP 200 ✅
+  - Jack Daniels Running Formula (https://us.humankinetics.com/products/daniels-running-formula-4th-edition) - 有效 ✅
+**任务完成！**
+
+## `contents/running/03-半马训练指南.md` 外部链接检查结果
+
+| 链接 | 状态 | 说明 |
+|------|------|------|
+| [Runner's World 半马专题](https://www.runnersworld.com/g30911399/half-marathon/) | ✅ 有效 | HTTP 200，页面正常 |
+| [Jack Daniels Running Formula](https://us.humankinetics.com/products/daniels-running-formula-4th-edition) | ✅ 有效 | 第四版 (2022)，Human Kinetics 官方页面 |
+
+两个链接均正常可访问，无需修改。
+
+---
+
+**后续子任务：**
+
+- 检查 `contents/running/04-全马训练指南.md` - Jack Daniels + Advanced Marathoning 链接
+- 检查 `contents/running/06-步频与步幅.md` - Jack Daniels 链接
+- 检查 `docs/training/03-half-marathon.md` - Runner's World 半马 + Jack Daniels 链接
+- 检查 `docs/training/04-full-marathon.md` - Jack Daniels + Advanced Marathoning 链接
+- 检查 `docs/technique/06-cadence.md` - Jack Daniels 链接
+[2026-03-02 15:05:07] 提取到新任务，插入到任务列表头部
+[2026-03-02 15:05:07] 检查 git 变更...
+[2026-03-02 15:05:07] 执行: git add .
