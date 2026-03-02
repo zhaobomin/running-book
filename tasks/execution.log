@@ -1118,3 +1118,45 @@ and the repository exists.
 [2026-03-02 15:06:15] 提取到新任务，插入到任务列表头部
 [2026-03-02 15:06:16] 检查 git 变更...
 [2026-03-02 15:06:16] 执行: git add .
+[2026-03-02 15:06:16] 执行: git commit -m "update: " [Pete Pfitzinger Advanced Marathoning](https://u..."
+[2026-03-02 15:06:16] 执行: git push
+[2026-03-02 15:06:19] Git 操作完成
+[2026-03-02 15:06:19] 任务完成，剩余任务数: 120
+[2026-03-02 15:06:19] 执行: git pull
+[2026-03-02 15:06:25] Git pull 失败，检查是否有冲突...
+[2026-03-02 15:06:25] Git pull 失败，可能是其他原因
+[2026-03-02 15:06:25] 执行任务: " [Pete Pfitzinger Advanced Marathoning](https://us.humankinetics.com/products/advanced-marathoning-3rd-edition) - 进阶马拉松训练指南",
+[2026-03-02 15:06:25] 执行命令: claude -p --dangerously-skip-permissions "" [Pete Pfitzinger Advanced Marathoning](https://us.humankinetics.com/products/advanced-marathoning-3rd-edition) - 进阶马拉松训练指南","
+任务已完成。我已将 **Pete Pfitzinger Advanced Marathoning** 链接从第3版更新到第4版（2026年新版）：
+
+**更新内容：**
+- 文件 `docs/training/04-full-marathon.md:610`
+- 文件 `contents/running/04-全马训练指南.md:443`
+- 新URL: `https://us.humankinetics.com/products/advanced-marathoning-4th-edition`
+- 新描述: "进阶马拉松训练指南（第4版，2026）"
+
+**第4版信息：**
+- 作者：Pete Pfitzinger, Scott Douglas
+- 价格：$29.95（纸质版）/ $22.95（电子版）
+- 页数：296页
+- 出版年份：©2026
+
+---
+
+**后续子任务列表：**
+
+- 检查所有外部链接的有效性
+- 为关键数据添加研究来源引用
+- 补充各章节的常见问题FAQ部分
+- 扩充后8个章节（12-19）的内容深度
+- 检查并统一标点符号使用（中英文标点）
+- 统一中英文混排的空格规范
+- 添加"跑者装备选购指南"章节
+- 编写"跑步心理学"章节
+- 创建"特殊人群跑步指南"
+- 添加"越野跑入门"章节
+- 编写"跑步与天气"章节
+- 创建"跑步APP和工具推荐"章节
+[2026-03-02 15:08:32] 提取到新任务，插入到任务列表头部
+[2026-03-02 15:08:32] 检查 git 变更...
+[2026-03-02 15:08:32] 执行: git add .
