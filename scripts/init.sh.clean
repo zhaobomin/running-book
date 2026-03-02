@@ -1,0 +1,68 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+cd "$ROOT"
+
+mkdir -p docs sources plans changelogs logs scripts
+
+# 初始化占位文件（若不存在）
+[ -f outline.md ]      || printf "# 书籍目录（待初始化生成）\n" > outline.md
+[ -f style_guide.md ]  || printf "# 写作风格指南（待初始化生成）\n" > style_guide.md
+[ -f constraints.md ]  || printf "# 硬约束（待初始化生成）\n" > constraints.md
+[ -f rubric.md ]       || printf "# 评分量表（待初始化生成）\n" > rubric.md
+
+cat > README_AUTORUN.md <<'EOF'
+# 自动化写书（本地）
+1) 把你的第一版书稿（md/docx/txt/pdf 等）放到 contents/
+2) 如果你已有分章 Markdown，可放到 docs/
+3) 运行：
+   - scripts/init.sh          # 初始化（生成目录/风格/约束/评分与初始改进计划）
+   - scripts/daily.sh         # 手动跑一轮每日迭代
+   - scripts/install_cron.sh  # 安装每天定时跑
+EOF
+
+DATE="$(date +%F)"
+PLAN="plans/${DATE}-init-plan.md"
+LOG="logs/${DATE}-init.log"
+PROMPT_FILE="logs/${DATE}-init-prompt.txt"
+
+echo "==> 初始化：生成 outline/style/constraints/rubric + 初始计划"
+echo "==> 你应该先把第一版书稿放到 contents/ 或把分章稿放到 docs/"
+
+# 把初始化 Prompt 写入文件（避免 heredoc/变量嵌套导致 bash 误解析）
+cat > "$PROMPT_FILE" <<EOF
+你是"跑步教练 + 出版编辑总监 + 严谨审校"。请在当前仓库完成《跑步训练与实践》一书的初始化治理，目标是让后续每天自动优化都能稳定推进。
+
+请读取：
+- contents/ 下所有文件（可能是第一版原稿、参考资料）
+- docs/ 下所有 Markdown（如果有）
+
+并生成/更新以下四个文件（直接写到仓库）：
+1) outline.md：全书目录结构（章节标题、每章目标、关键点、读者收益）
+2) style_guide.md：写作风格与统一口径（受众画像、语气、术语表、结构模板、示例标准）
+3) constraints.md：硬约束（安全免责声明、医疗相关边界、引用/事实要求、不可编造规则）
+4) rubric.md：评分量表（每章从结构清晰度、可执行性、准确性、重复度、术语一致性、风险提示等维度打分，给出可检查的扣分标准）
+
+另外，请生成一个初始化改进计划文件：$PLAN，包含：
+- Top 15 问题清单（按严重程度排序，引用章节/段落位置）
+- 未来 7 天的改进路线图（每天最多改 2-3 章）
+- 每天的验收标准（可检查）
+- 风险与不确定性清单（需要作者确认的信息）
+
+重要规则：
+- 不要编造你没看到的事实或参考来源；缺信息就列"需确认"
+- 涉及伤病/医疗必须加"非医疗建议"与"何时就医"的触发条件
+- 只做"初始化治理+计划"，不要重写整本书
+EOF
+
+# 执行（把 prompt 文件内容传给 claude）
+claude -p "$(cat "$PROMPT_FILE")" > "$LOG"
+
+echo "==> 初始化完成："
+echo " - outline.md / style_guide.md / constraints.md / rubric.md"
+echo " - $PLAN"
+echo " - 日志：$LOG"
+echo " - Prompt：$PROMPT_FILE"
+
+echo "==> 下一步：打开 $PLAN 看 7 天游标；然后跑 scripts/daily.sh 执行第 1 天游标。"
