@@ -1,0 +1,9 @@
+[0;32m==> run mode: new, run id: 2026-03-03T002332[0m
+codex-cli 0.106.0
+[0;32m==> [20_plan] generate daily plan[0m
+[codex] You've hit your usage limit. Upgrade to Pro (https://chatgpt.com/explore/pro), visit https://chatgpt.com/codex/settings/usage to purchase more credits or try again at 11:40 AM.
+[codex] command failed (attempt 1/3), retrying...
+[codex] You've hit your usage limit. Upgrade to Pro (https://chatgpt.com/explore/pro), visit https://chatgpt.com/codex/settings/usage to purchase more credits or try again at 11:40 AM.
+[codex] command failed (attempt 2/3), retrying...
+[codex] You've hit your usage limit. Upgrade to Pro (https://chatgpt.com/explore/pro), visit https://chatgpt.com/codex/settings/usage to purchase more credits or try again at 11:40 AM.
+[0;31mstage failed: 20_plan[0m
