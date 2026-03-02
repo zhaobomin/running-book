@@ -466,7 +466,7 @@
 
 - [Chi Running](https://chiliving.com/) - 气功跑法
 - [Pose Method](https://posemethod.com/) - 姿势跑法
-- [Good Form Running](https://www.newbalance.com/goodformrunning.html) - 正确跑姿指南
+- [Good Form Running](https://playmakers.com/good-form) - 正确跑姿指南
 
 *上一篇：[全马训练指南](/training/04-full-marathon)*
 *下一篇：[步频与步幅](./06-cadence)*
