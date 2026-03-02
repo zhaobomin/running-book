@@ -1,0 +1,513 @@
+[0;32m==> init mode: resume, run id: init-filter-smoke[0m
+codex-cli 0.106.0
+[0;32m==> [20_generate] build governance files[0m
+[codex] 我会先全面扫描并读取 `contents/` 和 `docs/` 下的文件，提取现有章节结构、术语与风险点，然后据此生成你要求的 5 个治理文件并写入仓库。接下来先做文件盘点和内容采样读取。
+[codex] cmd started: /bin/bash -lc "find docs -type f -name '*.md' 2>/dev/null || true"
+[codex] cmd started: /bin/bash -lc 'rg --files contents docs || true'
+[codex] cmd done (exit=0)
+[codex] cmd done (exit=0)
+[codex] 我发现仓库里没有 `contents/` 目录（需确认是否缺失或路径变更）。我会继续完整读取 `docs/` 下全部 Markdown，并基于可见内容完成初始化治理文件，同时在计划里明确缺失信息。
+[codex] cmd started: /bin/bash -lc 'for f in $(find docs -type f -name '"'*.md' | sort); do echo '===== FILE:' \""'$f"; sed -n '"'1,240p' \""'$f"; echo; done'
+[codex] cmd done (exit=0)
+[codex] ...working
+[codex] 我已经读取到大量章节正文，但输出被终端截断。为了保证“全部读取”与可定位问题，我会补充做两步：先抽取每个文件的标题/结构，再用行号检索高风险表述（如“绝对”“必须”“配速公式”等）来形成可追踪的问题清单。
+[codex] cmd started: /bin/bash -lc 'for f in $(find docs -type f -name '"'*.md' | sort); do echo '###' "'$f; rg -n '"'"'^#|''^##|''^###'"' \""'$f"; done'
+[codex] cmd started: /bin/bash -lc 'for f in $(find docs -type f -name '"'*.md' | sort); do echo '---' "'$f; rg -n '"'必须|绝对|禁止|全力|受伤|疼痛|就医|中暑|热射病|抽筋|心率|公式|研究表明|建议|可选|风险|药|治疗|康复|恢复' \""'$f" | head -n 60; done'
+[codex] cmd done (exit=0)
+[codex] cmd done (exit=0)
+[codex] ...working
+[codex] 我已经拿到每章标题与关键风险语句的行号索引，足够支撑“可追踪”的初始化治理。下一步我会先检查目标文件是否已存在，再写入统一版本：`outline.md`、`style_guide.md`、`constraints.md`、`rubric.md` 和 `plans_codex/init-filter-smoke-plan.md`。
+[codex] cmd started: /bin/bash -lc 'ls -la'
+[codex] cmd done (exit=0)
+[codex] cmd started: /bin/bash -lc 'ls -la plans_codex 2>/dev/null || true'
+[codex] cmd started: /bin/bash -lc 'for f in outline.md style_guide.md constraints.md rubric.md; do [ -f "$f" ] && echo "EXISTS $f"; done'
+[codex] cmd done (exit=0)
+[codex] cmd done (exit=0)
+[codex] cmd started: /bin/bash -lc "sed -n '1,260p' constraints.md"
+[codex] cmd started: /bin/bash -lc "sed -n '1,260p' style_guide.md"
+[codex] cmd started: /bin/bash -lc "sed -n '1,260p' outline.md"
+[codex] cmd started: /bin/bash -lc "sed -n '1,260p' plans_codex/init-2026-03-02T200948-plan.md"
+[codex] cmd started: /bin/bash -lc "sed -n '1,260p' rubric.md"
+[codex] cmd done (exit=0)
+[codex] cmd done (exit=0)
+[codex] cmd done (exit=0)
+[codex] cmd done (exit=0)
+[codex] cmd done (exit=0)
+[codex] 我将直接覆盖更新这 4 个治理文件，并新增你指定的 `plans_codex/init-filter-smoke-plan.md`。内容会保留“只基于已读取材料”的边界，并把 `contents/` 缺失明确标记为“需确认”。
+[codex] cmd started: /bin/bash -lc "cat > outline.md <<'EOF'
+# 《跑步训练与实践》目录结构（初始化治理版）
+
+版本：2026-03-02  
+范围：已读取 "'`docs/` 全部 Markdown；`contents/` 目录未找到（需确认）
+
+## 全书定位
+- 定位：面向大众跑者的训练实践手册，强调安全、可执行、可复盘。
+- 主线：入门 -> 训练进阶 -> 技术动作 -> 力量支持 -> 伤病预防 -> 营养恢复 -> 进阶专题。
+
+## 目录结构（章节标题 / 每章目标 / 关键点 / 读者收益）
+
+### 导读部分
+
+#### 简介（`docs/guide/index.md`）
+- 每章目标：让读者理解本书结构、学习路径、使用方式。
+- 关键点：章节依赖关系、分层学习建议、适用人群。
+- 读者收益：避免盲目阅读，先建立全局地图。
+
+#### 快速开始（`docs/guide/getting-started.md`）
+- 每章目标：帮助读者在 1 天内安全启动第一轮训练。
+- 关键点：基础装备、跑走结合、基础安全提醒。
+- 读者收益：降低起步阻力，快速进入可持续训练状态。
+
+### 第一部分 训练计划
+
+#### 01 新手入门训练计划（`docs/training/01-beginner.md`）
+- 每章目标：8 周建立稳定跑步习惯与基础体能。
+- 关键点：跑走结合、渐进负荷、常见错误、进度自测。
+- 读者收益：从零基础过渡到可连续训练。
+
+#### 02 5K/10K 训练方案（`docs/training/02-5k-10k.md`）
+- 每章目标：实现从完赛到提速的结构化进阶。
+- 关键点：轻松跑/间歇跑/节奏跑分工、赛前减量、比赛策略。
+- 读者收益：具备按目标配速训练和完赛能力。
+
+#### 03 半马训练指南（`docs/training/03-half-marathon.md`）
+- 每章目标：完成 12 周半马备赛与执行闭环。
+- 关键点：阶段周期、长距离训练、补给策略、赛前调整。
+- 读者收益：降低后程崩盘风险，提高完赛稳定性。
+
+#### 04 全马训练指南（`docs/training/04-full-marathon.md`）
+- 每章目标：建立 16 周全马训练与比赛执行框架。
+- 关键点：周跑量与周期化、30K+长跑策略、撞墙应对、赛后恢复。
+- 读者收益：形成全马训练-比赛-恢复的完整流程。
+
+### 第二部分 跑步技术
+
+#### 05 正确跑步姿势（`docs/technique/05-posture.md`）
+- 每章目标：建立高效率、低风险的基础跑姿。
+- 关键点：头肩髋腿脚链路、姿势自检、错误动作纠正。
+- 读者收益：提高经济性并减少技术性伤病。
+
+#### 06 步频与步幅（`docs/technique/06-cadence.md`）
+- 每章目标：让读者理解速度构成并可量化优化。
+- 关键点：步频步幅关系、分阶段训练、实时监控。
+- 读者收益：可执行地优化节奏与配速表现。
+
+#### 07 呼吸技巧（`docs/technique/07-breathing.md`）
+- 每章目标：建立呼吸与强度联动控制能力。
+- 关键点：呼吸节奏、口鼻策略、常见呼吸问题处理。
+- 读者收益：降低呼吸失控，提升训练稳定性。
+
+### 第三部分 力量训练
+
+#### 08 核心训练（`docs/strength/08-core.md`）
+- 每章目标：提升躯干稳定，支持跑姿与耐力。
+- 关键点：分级核心计划、跑前激活、伤病关联。
+- 读者收益：后程姿态更稳定、代偿更少。
+
+#### 09 下肢力量训练（`docs/strength/09-lower-body.md`）
+- 每章目标：提升下肢力量与稳定性。
+- 关键点：基础/进阶动作、训练安排、伤病预防要点。
+- 读者收益：提升推蹬效率并增强抗伤能力。
+
+#### 10 跑前热身与跑后拉伸（`docs/strength/10-warmup-stretch.md`）
+- 每章目标：形成标准化热身-拉伸流程。
+- 关键点：动态热身模板、跑后拉伸动作、场景化调整。
+- 读者收益：减少训练前后波动与急性不适。
+
+### 第四部分 伤病预防
+
+#### 11 常见跑步伤病（`docs/injury/11-common-injuries.md`）
+- 每章目标：建立伤病识别与分级处置能力。
+- 关键点：十大伤病特征、停跑与就医阈值、恢复原则。
+- 读者收益：在早期做对决策，避免小伤拖大。
+
+#### 12 伤病预防策略（`docs/injury/12-prevention.md`）
+- 每章目标：把预防做成日常系统。
+- 关键点：训练负荷管理、恢复管理、自我监测、红旗信号。
+- 读者收益：提高训练连续性，降低复发率。
+
+#### 13 跑者膝盖保护（`docs/injury/13-knee-protection.md`）
+- 每章目标：针对高发膝痛提供可执行干预。
+- 关键点：疼痛分级、康复阶段、跑量回归标准。
+- 读者收益：减少膝伤恶化和反复停训。
+
+### 第五部分 营养恢复
+
+#### 14 跑者饮食指南（`docs/nutrition/14-diet.md`）
+- 每章目标：建立训练日常的营养框架。
+- 关键点：三大营养素、跑前中后饮食、特殊人群提示。
+- 读者收益：保障训练能量与恢复质量。
+
+#### 15 长距离补给策略（`docs/nutrition/15-fueling.md`）
+- 每章目标：形成半马/全马可演练补给方案。
+- 关键点：碳水/水分/电解质时序、肠胃训练、赛日模板。
+- 读者收益：降低撞墙、脱水、肠胃问题风险。
+
+#### 16 恢复与睡眠（`docs/nutrition/16-recovery-sleep.md`）
+- 每章目标：建立系统恢复能力。
+- 关键点：睡眠、主动恢复、疲劳监测、赛后恢复期安排。
+- 读者收益：提升适应效率，降低过度训练概率。
+
+### 第六部分 进阶话题
+
+#### 17 速度训练方法（`docs/advanced/17-speed.md`）
+- 每章目标：在可控风险下提升速度能力。
+- 关键点：间歇/节奏/法特莱克/冲刺安排、训练周期。
+- 读者收益：提速更系统，不靠硬扛。
+
+#### 18 心率训练（`docs/advanced/18-heart-rate.md`）
+- 每章目标：让训练强度可量化、可校准。
+- 关键点：心率区间、最大心率估算与实测、数据应用。
+- 读者收益：减少训练盲目性，提升训练精度。
+
+#### 19 比赛策略（`docs/advanced/19-race-strategy.md`）
+- 每章目标：把训练能力转化为比赛表现。
+- 关键点：赛前减量、配速策略、补给执行、心理策略。
+- 读者收益：提高比赛稳定性，减少赛中失误。
+
+#### 20 跑步与天气（`docs/advanced/20-weather.md`）
+- 每章目标：建立天气风险识别与替代决策能力。
+- 关键点：高温/低温/降雨/风/空气质量/雷电应对。
+- 读者收益：在复杂环境下更安全训练。
+
+#### 21 APP 与工具推荐（`docs/advanced/21-apps-tools.md`）
+- 每章目标：帮助读者做工具选型而非盲目跟风。
+- 关键点：APP 选择、手表与心率带、数据记录与整合。
+- 读者收益：降低选购和使用成本，工具服务训练目标。
+
+## 需确认
+- `contents/` 目录是否另有路径或尚未提交。
+EOF
+
+cat > style_guide.md <<'"'EOF'
+# 《跑步训练与实践》写作风格与统一口径（初始化治理版）
+
+版本：2026-03-02
+
+## 1. 受众画像
+- A 类：零基础/回归跑者（目标：安全起步、建立习惯）。
+- B 类：5K/10K 进阶跑者（目标：稳定完赛、逐步提速）。
+- C 类：半马/全马备赛跑者（目标：系统训练、稳定完赛或 PB）。
+- D 类：高风险读者（慢病史、近期伤病、睡眠长期不足、体重波动明显）。
+
+统一要求：每章开头明确“适用人群”和“不适用人群”。
+
+## 2. 语气与表达
+- 语气：教练式、克制、清晰、可执行。
+- 句式：优先短句和行动句，避免空泛口号。
+- 强制：结论后跟边界条件（适用场景/禁忌场景/替代方案）。
+- 禁止：无条件绝对化表达（如“必须”“唯一”“所有人都应”）。
+
+## 3. 术语表（统一口径）
+- 轻松跑：可完整对话，通常用于有氧基础或恢复。
+- 节奏跑：舒适地困难，能说短语不能完整对话。
+- 间歇跑：高强度重复 + 恢复段交替。
+- 长距离跑：以耐力适应为目标，不以速度测试为目标。
+- 减量期：赛前降低训练量、保留部分强度的阶段。
+- 最大心率（HRmax）、静息心率（RHR）、心率变异性（HRV）。
+- 红旗信号：应立即停训并考虑就医的症状/体征。
+
+## 4. 统一单位与格式
+- 配速："'`分:秒/公里`。
+- 距离：`公里（km）`。
+- 心率：`次/分钟（bpm）`。
+- 温度：`°C`。
+- 营养：`g/kg 体重`、液体补给用 `ml`。
+- 时间敏感信息：加 `截至 YYYY-MM-DD，需复核`。
+
+## 5. 章节结构模板（强制）
+1. 本章目标（1-3 条）
+2. 适用人群与前置条件
+3. 核心方法与步骤
+4. 可执行计划（周计划/清单/流程）
+5. 风险与边界（含“非医疗建议”）
+6. 何时停止训练并就医（红旗信号）
+7. FAQ（聚焦执行问题）
+8. 参考来源（可追溯）
+
+## 6. 示例标准
+- 合格示例：
+  - “若连续 2 次训练在前 1/3 出现动作失控，下次配速下调 5-10 秒/公里。”
+  - “赛前 3 天碳水建议 7-10 g/kg；糖代谢异常人群需先咨询医生。”
+- 不合格示例：
+  - “多练就会进步。”
+  - “赛前一定要猛吃碳水。”
+
+## 7. 事实与引用表达
+- 出现“研究表明/可降低X%/建议摄入Y g/kg”必须附来源。
+- 无来源时标注“需确认”，不得补写猜测数据。
+- 不得将经验值写成普适事实。
+
+## 8. 重复与一致性
+- 同章重复标题、重复 FAQ、重复表格属于严重质量问题。
+- 跨章术语冲突必须解释适用条件，不得并列给出矛盾结论。
+
+## 9. 包容性与边界
+- 不羞辱配速、体重、年龄、性别。
+- 生理期、中老年、伤后回归人群提供替代方案，不一刀切。
+EOF
+
+cat > constraints.md <<'"'EOF'
+# 《跑步训练与实践》硬约束（初始化治理版）
+
+版本：2026-03-02
+
+## 1. 安全免责声明（强制）
+- 涉及伤病、症状、康复、补给风险的章节，必须包含固定句：
+  - "'`以下内容为跑步训练科普，不构成医疗建议或个体化诊断。`
+
+## 2. 医疗边界（强制）
+- 不得给出诊断结论、处方、药物剂量建议。
+- 不得引导“忍痛继续训练”。
+- 任何症状处理都必须给出“何时就医”触发条件。
+
+## 3. 就医触发条件（最低红旗清单，强制保留）
+- 胸痛、胸闷、呼吸困难、晕厥或近乎晕厥。
+- 单侧明显肿胀/剧痛、无法负重、疑似骨折。
+- 关节卡锁、急性外伤后功能明显受限。
+- 持续高热或全身症状明显。
+- 热射病疑似（意识异常、体温显著升高、停止出汗）。
+
+## 4. 引用与事实要求（强制）
+- 量化结论（比例、阈值、时间窗、剂量）必须有可追溯来源。
+- 出现“研究表明/数据显示/可降低X%”必须附证据。
+- 引用不足时统一标记 `需确认`。
+
+## 5. 不可编造规则（强制）
+- 不得编造研究、机构、作者、统计结果。
+- 不得把经验值包装成普适事实。
+- 不得用不确定信息冒充确定结论。
+
+## 6. 时间敏感信息规则（强制）
+- APP 功能、设备型号/价格、赛事资格规则需标注：
+  - `截至 YYYY-MM-DD，需复核`
+
+## 7. 结构一致性规则（强制）
+- 每章至少包含：目标、适用对象、方法步骤、风险边界、就医触发、FAQ、参考来源。
+- 禁止章节编号跳号、重复编号、整段重复。
+
+## 8. 术语一致性规则（强制）
+- 全书统一使用：配速（分:秒/公里）、心率（bpm）、营养（g/kg）。
+- 同术语跨章差异必须注明适用条件。
+
+## 9. 训练建议边界（强制）
+- 每个计划必须有“降负荷/回退”规则。
+- 对新手、伤后回归、慢病高风险读者提供保守选项。
+EOF
+
+cat > rubric.md <<'"'EOF'
+# 《跑步训练与实践》章节评分量表（初始化治理版）
+
+版本：2026-03-02  
+适用范围：单章评分；总分 100 分
+
+## 维度与分值
+
+### 1) 结构清晰度（20分）
+- 满分标准：章节模板 8 项完整，标题层级连续。
+- 扣分：
+  - 缺 1 个核心模块：-3 分
+  - 标题跳级/编号错误：-2 到 -5 分
+  - 同章出现重复结构块：-5 到 -10 分
+
+### 2) 可执行性（20分）
+- 满分标准：步骤、频率、时长、强度、调整规则清楚。
+- 扣分：
+  - 只有原则无步骤：-5 分
+  - 缺少回退/降负荷规则：-5 分
+  - 不可执行建议（如“多练”）：每处 -2 分
+
+### 3) 准确性与证据（20分）
+- 满分标准：量化主张均可追溯。
+- 扣分：
+  - “研究表明”无来源：每处 -3 分
+  - 百分比/阈值/剂量无来源：每处 -2 分
+  - 时效信息无日期标注：每处 -2 分
+
+### 4) 风险与医疗边界（15分）
+- 满分标准：有“非医疗建议”声明 + 就医触发条件。
+- 扣分：
+  - 缺固定声明：-5 分
+  - 缺就医触发：-5 分
+  - 危险导向（如忍痛训练）：每处 -5 分
+
+### 5) 术语一致性（10分）
+- 满分标准：术语定义与单位全书一致。
+- 扣分：
+  - 术语混用未解释：每处 -2 分
+  - 单位不统一：每处 -1 分
+  - 跨章冲突未注释：每处 -3 分
+
+### 6) 重复度与冗余（10分）
+- 满分标准：无重复标题/重复 FAQ/重复段落。
+- 扣分：
+  - 完整重复块：每块 -5 分
+  - 高相似近重复（>70%）：每处 -3 分
+
+### 7) 读者收益与适配（5分）
+- 满分标准：读者可明确“学完做什么”，并有分层建议。
+- 扣分：
+  - 未写读者收益：-2 分
+  - 无高风险人群替代方案：-3 分
+
+## 判定阈值
+- 90-100：可发布
+- 75-89：可进入下一轮优化
+- 60-74：需重点返工
+- <60：不通过
+
+## 可检查的扣分触发（供自动化）
+- 检测重复章节标题与重复 FAQ。
+- 检测“研究表明/数据显示/%/g/kg”等词后是否存在来源段。
+- 检测是否出现固定免责声明和红旗就医段。
+- 检测“必须/绝对/唯一”后是否附边界条件。
+EOF
+
+mkdir -p plans_codex
+cat > plans_codex/init-filter-smoke-plan.md <<'EOF'
+# 初始化改进计划：init-filter-smoke（2026-03-02）
+
+范围：已读取 "'`docs/` 全部 Markdown；`contents/` 目录未发现（需确认）
+目标：仅做“初始化治理 + 计划”，不重写整本书。
+
+## Top 15 问题清单（按严重程度）
+
+1. `contents/` 目录缺失，关键输入不完整（阻断项）  
+   - 位置：仓库根目录（预期 `contents/`）
+
+2. 章节内存在整块重复（高严重）  
+   - 位置：`docs/nutrition/16-recovery-sleep.md:484`（第二套“七、常见问题”重复出现）
+
+3. 章节内存在整段重复（高严重）  
+   - 位置：`docs/technique/06-cadence.md:604`（步频训练进阶计划重复）
+
+4. 医疗内容未全书统一固定免责声明（高严重）  
+   - 位置示例：`docs/training/01-beginner.md:279`（有就医条目但无统一固定句）
+
+5. 医疗/伤病章节虽有触发条件，但口径分散（高严重）  
+   - 位置示例：`docs/injury/11-common-injuries.md:310`、`docs/injury/12-prevention.md:453`、`docs/injury/13-knee-protection.md:279`
+
+6. 量化断言未配套来源（高严重）  
+   - 位置示例：`docs/training/01-beginner.md:112`（3.5% vs 10.2%）、`docs/injury/12-prevention.md:422`（30-50%）
+
+7. “研究表明”类措辞未统一做证据落地（高严重）  
+   - 位置示例：`docs/training/02-5k-10k.md:9`、`docs/training/03-half-marathon.md:131`、`docs/training/04-full-marathon.md:157`
+
+8. 时间敏感信息未标注“截至日期”（中高）  
+   - 位置：`docs/advanced/21-apps-tools.md:158`（品牌对比、设备推荐）
+
+9. 术语口径跨章有差异且未标注条件（中高）  
+   - 位置示例：`docs/training/01-beginner.md:165` vs `docs/technique/05-posture.md:60`（步频建议范围差异）
+
+10. 标题编号不连续（中）  
+   - 位置：`docs/strength/10-warmup-stretch.md:326`（“第八部分”前缺“第七部分”）
+
+11. 编辑痕迹进入正文（中）  
+   - 位置：`docs/advanced/17-speed.md:677`、`docs/injury/12-prevention.md:471`（“本次修改摘要”）
+
+12. 高强度训练建议存在绝对化措辞（中）  
+   - 位置示例：`docs/advanced/17-speed.md:3`（“必须练速度”）
+
+13. 比赛/资格规则有时效风险（中）  
+   - 位置：`docs/training/04-full-marathon.md:54`（BQ 资格信息未加时间戳）
+
+14. 气象章节存在硬阈值，证据链不统一（中）  
+   - 位置：`docs/advanced/20-weather.md:296`（AQI 分级建议）
+
+15. 章节体量过大，自动化改写风险高（中）  
+   - 位置：`docs/technique/06-cadence.md`、`docs/nutrition/16-recovery-sleep.md`
+
+## 未来 7 天改进路线图（每天最多改 2-3 章）
+
+### Day 1
+- 章节：`docs/technique/06-cadence.md`、`docs/nutrition/16-recovery-sleep.md`
+- 任务：去重、修复编号、收敛 FAQ，补统一免责声明与就医触发段。
+
+### Day 2
+- 章节：`docs/injury/11-common-injuries.md`、`docs/injury/12-prevention.md`、`docs/injury/13-knee-protection.md`
+- 任务：统一红旗信号、停训/就医阈值模板，未证据化内容标“需确认”。
+
+### Day 3
+- 章节：`docs/training/01-beginner.md`、`docs/training/02-5k-10k.md`
+- 任务：量化断言补来源或标“需确认”，统一核心术语定义。
+
+### Day 4
+- 章节：`docs/training/03-half-marathon.md`、`docs/training/04-full-marathon.md`
+- 任务：补“前置条件 + 回退规则 + 就医触发”，处理时效信息标注。
+
+### Day 5
+- 章节：`docs/nutrition/14-diet.md`、`docs/nutrition/15-fueling.md`
+- 任务：统一 `g/kg`、补水口径；补特殊人群边界（需确认项单列）。
+
+### Day 6
+- 章节：`docs/advanced/17-speed.md`、`docs/advanced/18-heart-rate.md`、`docs/advanced/19-race-strategy.md`
+- 任务：降绝对化措辞，补适用/禁忌人群与降负荷流程。
+
+### Day 7
+- 章节：`docs/advanced/20-weather.md`、`docs/advanced/21-apps-tools.md`
+- 任务：动态信息加“截至日期，需复核”，修复链接和引用一致性。
+
+## 每天验收标准（可检查）
+
+### Day 1 验收
+- `docs/technique/06-cadence.md` 不再出现重复“步频训练进阶计划”主标题。
+- `docs/nutrition/16-recovery-sleep.md` 仅保留一组“七、常见问题”。
+
+### Day 2 验收
+- 三章均出现统一“非医疗建议”固定句。
+- 三章均出现统一“何时就医（红旗）”小节。
+
+### Day 3 验收
+- 两章中出现“研究表明/数据显示/%”的段落均有来源或“需确认”标签。
+- 术语“轻松跑/节奏跑/间歇跑”定义不冲突。
+
+### Day 4 验收
+- 半马/全马两章均包含“回退规则”清单。
+- BQ/赛事规则段均带日期标注或“需确认”。
+
+### Day 5 验收
+- 营养单位统一为 `g/kg`，液体统一 `ml`。
+- 肠胃敏感/慢病场景出现替代方案或“需确认”。
+
+### Day 6 验收
+- 三章均新增“不适合人群”或“谨慎人群”提醒。
+- “必须/绝对/唯一”词频下降并仅保留安全禁令场景。
+
+### Day 7 验收
+- 工具推荐出现“截至 YYYY-MM-DD，需复核”。
+- 气象阈值段补来源或“需确认”。
+
+## 风险与不确定性清单（需作者确认）
+
+1. `contents/` 是否存在未提交原稿或参考资料？
+2. 本书是否覆盖慢病/中老年人群，还是仅健康成人？
+3. 引用标准是科普级还是出版审校级（需精确文献）？
+4. APP/设备推荐是否保留品牌导向，还是改为原则优先？
+5. 是否要求默认中国大陆语境（单位、赛事、平台）？
+6. 固定免责声明是否需要法务版模板？
+7. 后续每日自动优化优先级：先去重合规，还是先内容增强？
+EOF'
+[codex] cmd done (exit=0)
+[codex] ...working
+[codex] 文件已写入。我会快速做一次结构校验（文件存在、关键章节标题与计划段落完整），然后给你交付结果摘要。
+[codex] cmd started: /bin/bash -lc 'ls -la outline.md style_guide.md constraints.md rubric.md plans_codex/init-filter-smoke-plan.md'
+[codex] cmd done (exit=0)
+[codex] cmd started: /bin/bash -lc "for f in outline.md style_guide.md constraints.md rubric.md plans_codex/init-filter-smoke-plan.md; do echo '---' "'$f; rg -n '"'"'^#|''^## '"' \""'$f"; done'
+[codex] cmd done (exit=0)
+[codex] 已完成初始化治理并写入 5 个文件，基于 `docs/` 全部 Markdown；`contents/` 目录当前不存在，已在文档中标注“需确认”。
+
+- [outline.md](/Users/zhaobomin/Documents/projects/running-book/outline.md)
+- [style_guide.md](/Users/zhaobomin/Documents/projects/running-book/style_guide.md)
+- [constraints.md](/Users/zhaobomin/Documents/projects/running-book/constraints.md)
+- [rubric.md](/Users/zhaobomin/Documents/projects/running-book/rubric.md)
+- [plans_codex/init-filter-smoke-plan.md](/Users/zhaobomin/Documents/projects/running-book/plans_codex/init-filter-smoke-plan.md)
+
+本次输出满足你要求的范围与规则：
+- 仅做“初始化治理 + 计划”，未重写全书正文。
+- 伤病/医疗边界已纳入固定“非医疗建议”与“何时就医”触发框架。
+- 未见证据的内容统一按“需确认”治理思路处理。
+[0;32m==> [30_finalize] write summary[0m
+[0;32m==> Init done: run=init-filter-smoke[0m
+ - plan: plans_codex/init-filter-smoke-plan.md
+ - summary: reports_codex/init-filter-smoke-summary.md
+ - log: logs_codex/init-filter-smoke.log

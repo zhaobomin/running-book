@@ -1,3 +1,8 @@
 [0;32m==> init mode: new, run id: init-2026-03-02T200948[0m
 codex-cli 0.106.0
 [0;32m==> [20_generate] build governance files[0m
+[0;32m==> [30_finalize] write summary[0m
+[0;32m==> Init done: run=init-2026-03-02T200948[0m
+ - plan: plans_codex/init-2026-03-02T200948-plan.md
+ - summary: reports_codex/init-2026-03-02T200948-summary.md
+ - log: logs_codex/init-2026-03-02T200948.log
