@@ -89,6 +89,51 @@ def run_claude(prompt):
         log(f"执行 claude 命令出错: {e}")
         return ""
 
+def git_pull_and_handle_conflicts():
+    """执行 git pull 并处理冲突"""
+    try:
+        log("执行: git pull")
+        result = subprocess.run(["git", "pull"], capture_output=True, text=True)
+        
+        if result.returncode != 0:
+            log("Git pull 失败，检查是否有冲突...")
+            
+            # 检查是否有冲突
+            status_result = subprocess.run(["git", "status"], capture_output=True, text=True)
+            if "conflict" in status_result.stdout.lower():
+                log("发现冲突，尝试自动解决...")
+                
+                # 尝试使用 theirs 策略解决冲突
+                try:
+                    log("执行: git checkout --theirs .")
+                    subprocess.run(["git", "checkout", "--theirs", "."], check=True)
+                    log("冲突已自动解决（使用远程版本）")
+                except Exception as e:
+                    log(f"自动解决冲突失败: {e}")
+                    log("调用 Claude 解决冲突...")
+                    
+                    # 调用 Claude 解决冲突
+                    conflict_files = subprocess.run(["git", "diff", "--name-only", "--diff-filter=U"], 
+                                                 capture_output=True, text=True).stdout.strip()
+                    
+                    if conflict_files:
+                        prompt = f"""我在运行 git pull 时遇到了冲突，请帮我解决。\n\n冲突文件：\n{conflict_files}\n\n请提供解决冲突的步骤。"""
+                        
+                        # 调用 Claude
+                        try:
+                            cmd = ["claude", "-p", "--dangerously-skip-permissions", prompt]
+                            result = subprocess.run(cmd, capture_output=True, text=True, encoding="utf-8")
+                            log("Claude 提供的冲突解决建议:")
+                            log(result.stdout)
+                        except Exception as e:
+                            log(f"调用 Claude 失败: {e}")
+            else:
+                log(f"Git pull 失败，原因: {result.stderr}")
+        else:
+            log("Git pull 成功")
+    except Exception as e:
+        log(f"Git pull 操作异常: {e}")
+
 def git_commit_and_push(task):
     """执行 git 操作：add, commit, push"""
     try:
@@ -148,6 +193,9 @@ def main():
         
         task = tasks.pop(0)
         save_tasks(tasks)
+        
+        # 执行 git pull 并处理冲突
+        git_pull_and_handle_conflicts()
         
         log(f"执行任务: {task}")
         log(f"执行: claude -p --dangerously-skip-permissions \"{task}\"")

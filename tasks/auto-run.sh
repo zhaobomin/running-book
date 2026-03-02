@@ -52,6 +52,43 @@ log() {
     echo "[$(date '+%Y-%m-%d %H:%M:%S')] $1" | tee -a "$LOG_FILE"
 }
 
+git_pull_and_handle_conflicts() {
+    log "执行: git pull"
+    git pull
+    
+    if [ $? -ne 0 ]; then
+        log "Git pull 失败，检查是否有冲突..."
+        
+        # 检查是否有冲突
+        local status_output=$(git status)
+        if echo "$status_output" | grep -i "conflict" > /dev/null; then
+            log "发现冲突，尝试自动解决..."
+            
+            # 尝试使用 theirs 策略解决冲突
+            if git checkout --theirs .; then
+                log "冲突已自动解决（使用远程版本）"
+            else
+                log "自动解决冲突失败，调用 Claude 解决..."
+                
+                # 调用 Claude 解决冲突
+                local conflict_files=$(git diff --name-only --diff-filter=U)
+                if [ -n "$conflict_files" ]; then
+                    local prompt="我在运行 git pull 时遇到了冲突，请帮我解决。\n\n冲突文件：\n$conflict_files\n\n请提供解决冲突的步骤。"
+                    
+                    log "调用 Claude 解决冲突..."
+                    local result=$(claude -p --dangerously-skip-permissions "$prompt" 2>&1)
+                    log "Claude 提供的冲突解决建议:"
+                    log "$result"
+                fi
+            fi
+        else
+            log "Git pull 失败，可能是其他原因"
+        fi
+    else
+        log "Git pull 成功"
+    fi
+}
+
 git_commit_and_push() {
     local task="$1"
     log "检查 git 变更..."
@@ -126,6 +163,9 @@ main() {
             log "没有更多任务，结束循环"
             break
         fi
+        
+        # 执行 git pull 并处理冲突
+        git_pull_and_handle_conflicts
         
         log "执行任务: $task"
         

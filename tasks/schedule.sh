@@ -2,7 +2,8 @@
 # 持续优化调度脚本
 # 定期执行任务生成和自动运行
 
-PROJECT_DIR="/Users/zhaobomin/Documents/projects/running-book"
+# 使用相对路径，适用于任何系统
+PROJECT_DIR="$(pwd)"
 cd "$PROJECT_DIR"
 
 LOG_FILE="tasks/scheduler.log"

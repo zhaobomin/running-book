@@ -119,45 +119,47 @@ python3 tasks/auto-run.py
 # 编辑 crontab
 crontab -e
 
-# 添加每周一早上 9 点执行
-0 9 * * 1 cd /Users/zhaobomin/Documents/projects/running-book && ./tasks/schedule.sh
+# 添加每周一早上 9 点执行（替换为你的实际路径）
+0 9 * * 1 cd /path/to/running-book && ./tasks/schedule.sh
 ```
 
-### 自动执行（使用 launchd，macOS 推荐）
+### 自动执行（使用 systemd，Linux 推荐）
 
-创建 `~/Library/LaunchAgents/com.runningbook.scheduler.plist`:
+创建 `/etc/systemd/system/runningbook-scheduler.service`:
 
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
-<dict>
-    <key>Label</key>
-    <string>com.runningbook.scheduler</string>
-    <key>ProgramArguments</key>
-    <array>
-        <string>/Users/zhaobomin/Documents/projects/running-book/tasks/schedule.sh</string>
-    </array>
-    <key>StartCalendarInterval</key>
-    <dict>
-        <key>Hour</key>
-        <integer>9</integer>
-        <key>Minute</key>
-        <integer>0</integer>
-        <key>Weekday</key>
-        <integer>1</integer>
-    </dict>
-    <key>WorkingDirectory</key>
-    <string>/Users/zhaobomin/Documents/projects/running-book</string>
-</dict>
-</plist>
-</plist>
+```ini
+[Unit]
+Description=Running Book Auto Optimizer
+After=network.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=/path/to/running-book
+ExecStart=/path/to/running-book/tasks/schedule.sh
+
+[Install]
+WantedBy=multi-user.target
 ```
 
-加载服务：
+创建计时器文件 `/etc/systemd/system/runningbook-scheduler.timer`:
+
+```ini
+[Unit]
+Description=Run running book optimizer weekly
+
+[Timer]
+OnCalendar=Mon *-*-* 09:00:00
+Persistent=true
+
+[Install]
+WantedBy=timers.target
+```
+
+启用服务：
 
 ```bash
-launchctl load ~/Library/LaunchAgents/com.runningbook.scheduler.plist
+sudo systemctl enable runningbook-scheduler.timer
+sudo systemctl start runningbook-scheduler.timer
 ```
 
 ## 📊 查看日志
