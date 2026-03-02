@@ -1,0 +1,3 @@
+[
+  "审核并优化 running-book 项目，按照以下优先级进行：\n\n第一优先级（核心优化）：\n- 审核并优化 docs/guide/index.md（简介页面），确保内容完整、格式规范\n- 审核并优化 docs/guide/getting-started.md（快速开始），添加更多实用信息\n- 审核并优化 docs/index.md（首页），确保导航和功能区块完整\n\n第二优先级（内容扩展）：\n- 为 docs/training/01-beginner.md 添加 FAQ 常见问题部分\n- 为 docs/training/01-beginner.md 添加新手案例故事\n- 为 docs/technique/05-posture.md 添加跑姿自查清单\n- 为 docs/injury/11-common-injuries.md 添加伤病自查流程图\n\n第三优先级（格式规范）：\n- 统一所有章节的格式（标题层级、列表、表格）\n- 检查所有内部链接是否正确\n- 为每个章节添加上一篇/下一篇导航链接\n\n第四优先级（补充内容）：\n- 为训练计划章节添加训练日志模板\n- 为营养章节添加食谱示例\n- 为力量训练章节添加动作描述\n\n请按照优先级顺序执行，每完成一个任务后，如果有后续工作，请以列表形式输出子任务。"
+]
