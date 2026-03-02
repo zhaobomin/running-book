@@ -771,3 +771,35 @@ and the repository exists.
 [2026-03-02 14:40:55] 提取到新任务，插入到任务列表头部
 [2026-03-02 14:40:55] 检查 git 变更...
 [2026-03-02 14:40:55] 执行: git add .
+[2026-03-02 14:40:55] 执行: git commit -m "update: " 更新 coreperformance.com 重定向链接""
+[2026-03-02 14:40:55] 执行: git push
+[2026-03-02 14:40:58] Git 操作完成
+[2026-03-02 14:40:58] 任务完成，剩余任务数: 86
+[2026-03-02 14:40:58] 执行: git pull
+[2026-03-02 14:41:04] Git pull 失败，检查是否有冲突...
+[2026-03-02 14:41:04] Git pull 失败，可能是其他原因
+[2026-03-02 14:41:04] 执行任务: " 更新 humankinetics.com 重定向链接",
+[2026-03-02 14:41:04] 执行命令: claude -p --dangerously-skip-permissions "" 更新 humankinetics.com 重定向链接","
+已成功更新 humankinetics.com 重定向链接。
+
+**更新完成：**
+
+| 文件 | 原链接 | 新链接 |
+|------|--------|--------|
+| `docs/technique/07-breathing.md` | `https://us.humankinetics.com/` | `https://us.humankinetics.com/collections/running` |
+| `contents/running/07-呼吸技巧.md` | `https://us.humankinetics.com/` | `https://us.humankinetics.com/collections/running` |
+
+**改进说明：**
+- 原链接指向 Human Kinetics 主页，不够具体
+- 新链接指向跑步书籍集合页面，包含 Daniels' Running Formula、Advanced Marathoning 等权威跑步训练书籍
+- 新链接更具针对性，更适合作为跑步呼吸技巧章节的参考资料
+
+---
+
+**后续待完成任务：**
+- 检查项目中是否有其他需要更新的重定向链接
+- 修复 chirunning.com 链接（TLS连接失败）
+- 修复 newbalance.com/goodformrunning.html 链接（403错误）
+[2026-03-02 14:44:47] 提取到新任务，插入到任务列表头部
+[2026-03-02 14:44:47] 检查 git 变更...
+[2026-03-02 14:44:47] 执行: git add .

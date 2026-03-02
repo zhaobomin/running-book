@@ -465,7 +465,7 @@
 
 ## 参考资料
 
-- [Running on Air](https://us.humankinetics.com/)
+- [Human Kinetics Running Books](https://us.humankinetics.com/collections/running)
 - [Breathing for Runners](https://www.runnersworld.com/)
 
 *上一篇：[步频与步幅](./06-cadence)*

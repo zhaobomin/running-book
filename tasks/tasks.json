@@ -1,5 +1,10 @@
 [
-  "\" 更新 coreperformance.com 重定向链接\"",
+  "\" 修复 newbalance.com/goodformrunning.html 链接（403错误）\"",
+  "\" 修复 chirunning.com 链接（TLS连接失败）\",",
+  "\" 检查项目中是否有其他需要更新的重定向链接\",",
+  "\" 新链接更具针对性，更适合作为跑步呼吸技巧章节的参考资料\",",
+  "\" 新链接指向跑步书籍集合页面，包含 Daniels' Running Formula、Advanced Marathoning 等权威跑步训练书籍\",",
+  "\" 原链接指向 Human Kinetics 主页，不够具体\",",
   "\" 更新 humankinetics.com 重定向链接\",",
   "\" 检查项目中是否有其他需要更新的重定向链接\",",
   "\" 修复 chirunning.com 链接（TLS连接失败）\",",
