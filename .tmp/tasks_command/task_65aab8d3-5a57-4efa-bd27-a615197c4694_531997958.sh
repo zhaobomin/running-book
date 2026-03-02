@@ -1,0 +1,2 @@
+cd /Users/zhaobomin/Documents/projects/running-book ; codex exec --full-auto "跑者饮食指南、长距离补给策略、恢复与睡眠，这3部分内容结构失调，大量短句，但文章行数又很多，帮我重新扩展优化一下，希望是一篇逻辑清晰，语言通顺的文章，可以参考章节一和二"
+cd /Users/zhaobomin/Documents/projects/running-book;git status;git add .;git commit -m "本次提交说明";git push origin main
