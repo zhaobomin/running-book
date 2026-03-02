@@ -4,6 +4,7 @@ export default defineConfig({
   title: "跑步指南",
   description: "一本关于跑步的线上书籍",
   lang: 'zh-CN',
+  appearance: false,
   themeConfig: {
     nav: [
       { text: '首页', link: '/' },
