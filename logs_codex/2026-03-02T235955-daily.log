@@ -1,0 +1,461 @@
+[0;32m==> run mode: new, run id: 2026-03-02T235955[0m
+codex-cli 0.106.0
+[0;32m==> [20_plan] generate daily plan[0m
+[codex] ...working
+[codex] 我会先快速盘点并读取你指定的文件：`outline.md`、`style_guide.md`、`constraints.md`、`rubric.md`、`docs/` 全部章节，以及最近 7 天 `changelogs_codex/`。然后基于这些内容给出仅包含计划的今日改进方案。
+[codex] cmd started: /bin/bash -lc 'ls -la docs || true; ls -la changelogs_codex || true; ls -la plans_codex || true'
+[codex] cmd started: /bin/bash -lc 'pwd && ls -la && rg --files'
+[codex] cmd done (exit=0)
+[codex] cmd done (exit=0)
+[codex] 我已经确认了文件清单，下一步会先读规范文件（`outline/style_guide/constraints/rubric`）和最近变更记录，再通读 `docs/` 各章，最后挑 2-3 章做今日计划并给出可验收标准。
+[codex] cmd started: /bin/bash -lc 'cat outline.md'
+[codex] cmd done (exit=0)
+[codex] cmd started: /bin/bash -lc 'cat rubric.md'
+[codex] cmd started: /bin/bash -lc 'cat constraints.md'
+[codex] cmd started: /bin/bash -lc 'cat style_guide.md'
+[codex] cmd done (exit=0)
+[codex] cmd done (exit=0)
+[codex] cmd done (exit=0)
+[codex] 规范文件已读完。现在我会通读 `docs/` 全部章节并做一次“模板完整性+风险边界+证据标注”的快速体检，先筛出最值得今天优先改的 2-3 章。
+[codex] cmd started: /bin/bash -lc 'for f in $(rg --files docs | sort); do echo '"'===== '\""'$f"'"' ====='; rg -n '"'^#|''^##|非医疗建议|就医|红旗|参考|FAQ|适用人群|不适用|截至|需复核|研究表明|数据显示|g/kg|bpm|分:秒/公里|必须|唯一|所有人都应'"' \""'$f" || true; echo; done'
+[codex] cmd done (exit=0)
+[codex] ...working
+[codex] 我已经完成全量章节的快速扫描，能看到哪些章节缺少“适用人群/风险边界/就医触发/参考来源”等强制模块。接下来我会读候选问题章的原文段落，确保计划里的“问题诊断”有准确引用。
+[codex] cmd started: /bin/bash -lc 'for f in $(rg --files docs | rg '"'\\.md"'$'"' | sort); do echo \"FILE: "'$f"; printf "  - 适用人群: "; rg -q '"'适用人群|适用与不适用|使用边界' \""'$f" && echo Y || echo N; printf "  - 非医疗建议: "; rg -q '"'非医疗建议|不构成医疗建议' \""'$f" && echo Y || echo N; printf "  - 就医触发: "; rg -q '"'就医|红旗' \""'$f" && echo Y || echo N; printf "  - FAQ: "; rg -q '"'FAQ|常见问题' \""'$f" && echo Y || echo N; printf "  - 参考来源: "; rg -q '"'参考资料|参考来源|参考与证据' \""'$f" && echo Y || echo N; done'
+[codex] cmd started: /bin/bash -lc 'for f in $(rg --files docs | rg '"'\\.md"'$'"' | sort); do c="'$(rg -n '"'研究表明|数据显示|%|g/kg|mg/kg|bpm|分:秒/公里' \""'$f" | wc -l | tr -d '"' '); s="'$(rg -n '"'需确认|建议后续补参考|截至 [0-9]{4}-[0-9]{2}-[0-9]{2}，需复核' \""'$f" | wc -l | tr -d '"' '); echo \""'$f | quant_lines=$c | confirm_markers=$s"; done'
+[codex] cmd done (exit=0)
+[codex] cmd done (exit=0)
+[codex] 我会再读取最近 7 天 `changelogs_codex/`，避免今天计划和刚完成的改动重复。
+[codex] cmd started: /bin/bash -lc 'for f in $(ls -1 changelogs_codex/*.md 2>/dev/null | sort); do echo '"'===== '\""'$f"'"' ====='; cat \""'$f"; echo; done'
+[codex] cmd done (exit=0)
+[codex] ...working
+[codex] 我准备把目标定在尚未治理且影响面大的章节。先精读候选章（`02/03/04` 与 `18`）提取可引用的问题段落，再给出最终 2-3 章计划。
+[codex] cmd started: /bin/bash -lc "sed -n '1,260p' docs/training/03-half-marathon.md"
+[codex] cmd started: /bin/bash -lc "sed -n '1,260p' docs/training/02-5k-10k.md"
+[codex] cmd done (exit=0)
+[codex] cmd done (exit=0)
+[codex] cmd started: /bin/bash -lc "sed -n '1,280p' docs/training/04-full-marathon.md"
+[codex] cmd started: /bin/bash -lc "sed -n '1,260p' docs/advanced/18-heart-rate.md"
+[codex] cmd done (exit=0)
+[codex] cmd done (exit=0)
+[codex] 我已拿到候选章上半部分内容。`18-heart-rate` 文件较长，我再把后半段读完，确保计划中的问题引用覆盖完整章节。
+[codex] cmd started: /bin/bash -lc "sed -n '261,620p' docs/advanced/18-heart-rate.md"
+[codex] cmd done (exit=0)
+[codex] ...working
+[codex] cmd started: /bin/bash -lc "nl -ba docs/training/02-5k-10k.md | sed -n '1,120p'"
+[codex] cmd started: /bin/bash -lc "nl -ba docs/training/04-full-marathon.md | sed -n '1,180p'"
+[codex] cmd started: /bin/bash -lc "nl -ba docs/advanced/18-heart-rate.md | sed -n '1,220p'"
+[codex] cmd done (exit=0)
+[codex] cmd done (exit=0)
+[codex] cmd done (exit=0)
+[codex] cmd started: /bin/bash -lc "nl -ba docs/advanced/18-heart-rate.md | sed -n '220,520p'"
+[codex] cmd done (exit=0)
+[codex] ...working
+[codex] cmd started: /bin/bash -lc "nl -ba docs/advanced/18-heart-rate.md | sed -n '520,700p'"
+[codex] cmd started: /bin/bash -lc "nl -ba docs/training/02-5k-10k.md | sed -n '240,620p'"
+[codex] cmd started: /bin/bash -lc "nl -ba docs/training/04-full-marathon.md | sed -n '220,680p'"
+[codex] cmd done (exit=0)
+[codex] cmd done (exit=0)
+[codex] cmd done (exit=0)
+[codex] ...working
+[codex] # 今日改进计划（2026-03-02）
+
+目标文件：`plans_codex/2026-03-02T235955-plan.md`  
+本轮仅选 3 章，聚焦高影响且未完成治理章节。
+
+## 1. [docs/training/02-5k-10k.md](/Users/zhaobomin/Documents/projects/running-book/docs/training/02-5k-10k.md)
+
+**问题诊断（引用段落）**
+- “美国跑步协会的研究表明……每年全球有数千万人参加各种5K比赛”([02-5k-10k.md:9](/Users/zhaobomin/Documents/projects/running-book/docs/training/02-5k-10k.md:9))，量化结论无来源绑定。  
+- “研究表明，8周的间歇跑训练可以将VO2max提高5%至15%”([02-5k-10k.md:77](/Users/zhaobomin/Documents/projects/running-book/docs/training/02-5k-10k.md:77))，量化主张无证据。  
+- 章节缺少固定免责声明与独立“何时停止训练并就医（红旗）”模块（结构不满足强制模板）。
+
+**改动策略**
+- 章首补齐：本章目标、适用/不适用人群、固定免责声明、证据状态。
+- 新增独立“风险边界+红旗就医触发+降负荷回退规则”（把当前FAQ分散建议收敛为单一决策规则）。
+- 对所有“研究表明/比例/阈值”逐条处理：有来源则补引用；无来源则改条件化表达并标注“需确认”。
+
+**验收标准（rubric对齐）**
+- 结构清晰度：模板8项完整（含风险边界、就医触发、FAQ、参考来源）。
+- 准确性与证据：无“研究表明/百分比”裸奔表述。
+- 风险与医疗边界：存在固定声明，且红旗触发独立可检索。
+- 可执行性：训练计划含明确回退条件（触发-动作-复评时间窗）。
+
+---
+
+## 2. [docs/training/04-full-marathon.md](/Users/zhaobomin/Documents/projects/running-book/docs/training/04-full-marathon.md)
+
+**问题诊断（引用段落）**
+- “比赛中，心脏要跳动约3万次，输送约8000升血液”([04-full-marathon.md:11](/Users/zhaobomin/Documents/projects/running-book/docs/training/04-full-marathon.md:11))，量化信息未给来源。  
+- “赛前3天……7-10g/kg”“建议4-6个能量胶”([04-full-marathon.md:257](/Users/zhaobomin/Documents/projects/running-book/docs/training/04-full-marathon.md:257), [04-full-marathon.md:456](/Users/zhaobomin/Documents/projects/running-book/docs/training/04-full-marathon.md:456))，剂量建议缺证据边界。  
+- 有“出现胸痛……应立即停止比赛并求助”([04-full-marathon.md:334](/Users/zhaobomin/Documents/projects/running-book/docs/training/04-full-marathon.md:334))，但未形成统一红旗模块与固定免责声明。
+
+**改动策略**
+- 将安全内容从正文分散段落抽离成统一“风险边界与就医触发”章节。
+- 营养与补给参数统一单位（`g/kg`、`g/h`、`ml/h`），并补“适用条件/不适用人群”。
+- 对争议阈值（最长长距离、胶数量、恢复时间表）做“双轨表达”：证据可追溯项保留；其余降级为经验区间并标“需确认”。
+
+**验收标准（rubric对齐）**
+- 风险与医疗边界：固定免责声明+完整红旗触发清单均可定位。
+- 术语一致性：配速、营养、心率单位全章统一。
+- 准确性与证据：所有量化建议要么有来源，要么显式“需确认”。
+- 读者收益与适配：首马/进阶跑者均有保守选项与回退路径。
+
+---
+
+## 3. [docs/advanced/18-heart-rate.md](/Users/zhaobomin/Documents/projects/running-book/docs/advanced/18-heart-rate.md)
+
+**问题诊断（引用段落）**
+- “最大心率=220-年龄”“误差可能±10-15次”([18-heart-rate.md:30](/Users/zhaobomin/Documents/projects/running-book/docs/advanced/18-heart-rate.md:30), [18-heart-rate.md:266](/Users/zhaobomin/Documents/projects/running-book/docs/advanced/18-heart-rate.md:266))，关键方法学无来源。  
+- “跑到心率160-170”“优秀>25次”([18-heart-rate.md:375](/Users/zhaobomin/Documents/projects/running-book/docs/advanced/18-heart-rate.md:375), [18-heart-rate.md:370](/Users/zhaobomin/Documents/projects/running-book/docs/advanced/18-heart-rate.md:370))，阈值化建议缺边界。  
+- 设备推荐（Garmin/Polar/Apple等）([18-heart-rate.md:186](/Users/zhaobomin/Documents/projects/running-book/docs/advanced/18-heart-rate.md:186)) 未加时效标记，且无“截至日期，需复核”。
+
+**改动策略**
+- 补齐章首模板：目标、适用/不适用、固定免责声明、证据状态。
+- 增加“高风险停训与就医触发”小节（胸痛、晕厥、异常心律感等红旗只做触发，不做诊断）。
+- 把公式、区间、HRV/恢复阈值改成“来源+适用条件+误差边界”表达；设备信息加“截至 YYYY-MM-DD，需复核”。
+
+**验收标准（rubric对齐）**
+- 结构清晰度：模板完整，层级连续。
+- 准确性与证据：关键公式/区间/阈值均有来源或“需确认”标注。
+- 风险与医疗边界：新增固定声明与就医触发条件。
+- 时间敏感规则：设备与功能信息均带日期复核标识。
+
+---
+
+## 风险 / 需确认点（不编造）
+
+1. 是否允许本轮继续使用“需确认”占位，还是要求同步补齐一手来源后再合并。  
+2. 固定免责声明是否必须全书使用同一句（`以下内容为跑步训练科普，不构成医疗建议或个体化诊断。`）。  
+3. 心率设备推荐是否需要按中国区可用性/价格做本地化，还是仅保留功能层建议。  
+4. 波马资格、设备型号、训练软件等时效信息，是否统一执行“截至 2026-03-02，需复核”。
+[0;32m==> [30_edit] apply changes[0m
+[codex] 我会先读取 `plans_codex/2026-03-02T235955-plan.md`，提取其中指定要修改的 `docs/` 章节和执行要求，然后仅对这些文件做定向修改并生成对应变更日志。接下来先核对计划内容与目标章节列表。
+[codex] cmd started: /bin/bash -lc 'cat plans_codex/2026-03-02T235955-plan.md'
+[codex] cmd done (exit=1)
+[codex] 计划文件路径在当前目录下未找到，我先在仓库内定位 `2026-03-02T235955-plan.md` 的实际位置，再按该文件执行。
+[codex] cmd started: /bin/bash -lc "rg --files | rg '2026-03-02T235955-plan\\.md|plans_codex'"
+[codex] cmd done (exit=0)
+[codex] cmd started: /bin/bash -lc "find .. -name '*2026-03-02T235955*' -maxdepth 4"
+[codex] cmd done (exit=0)
+[codex] 我找到了同时间戳的运行状态目录，下一步从 `state_codex/runs/2026-03-02T235955` 里提取该次计划内容，并映射到 `docs/` 章节执行。
+[codex] cmd started: /bin/bash -lc 'rg --files state_codex/runs/2026-03-02T235955'
+[codex] cmd done (exit=0)
+[codex] cmd started: /bin/bash -lc "cat state_codex/runs/2026-03-02T235955/stages/20_plan.status && echo '---' && cat state_codex/runs/2026-03-02T235955/artifacts.env"
+[codex] cmd done (exit=0)
+[codex] `artifacts.env` 显示目标计划路径确实是 `plans_codex/2026-03-02T235955-plan.md`，但文件缺失。我将从同次运行日志中恢复计划正文，确保仍能严格按原计划执行。
+[codex] cmd started: /bin/bash -lc 'rg -n "2026-03-02T235955|plan|PLAN|章节|docs/" logs_codex/2026-03-02T235955-daily.log | head -n 120'
+[codex] cmd done (exit=0)
+[codex] cmd started: /bin/bash -lc "sed -n '60,132p' logs_codex/2026-03-02T235955-daily.log"
+[codex] cmd done (exit=0)
+[codex] 我已经从日志恢复了完整计划，目标章为 `02-5k-10k`、`04-full-marathon`、`18-heart-rate`。现在先读取这三章当前内容，做最小且完整的结构化修订，然后逐章在末尾追加“本次修改摘要（3-5条）”。
+[codex] cmd started: /bin/bash -lc "sed -n '1,260p' docs/training/04-full-marathon.md"
+[codex] cmd started: /bin/bash -lc "sed -n '1,220p' docs/training/02-5k-10k.md"
+[codex] cmd started: /bin/bash -lc "sed -n '1,260p' docs/advanced/18-heart-rate.md"
+[codex] cmd done (exit=0)
+[codex] cmd done (exit=0)
+[codex] cmd done (exit=0)
+[codex] cmd started: /bin/bash -lc 'tail -n 100 docs/training/04-full-marathon.md'
+[codex] cmd started: /bin/bash -lc 'tail -n 80 docs/training/02-5k-10k.md'
+[codex] cmd started: /bin/bash -lc 'tail -n 120 docs/advanced/18-heart-rate.md'
+[codex] cmd started: /bin/bash -lc 'wc -l docs/training/02-5k-10k.md docs/training/04-full-marathon.md docs/advanced/18-heart-rate.md'
+[codex] cmd done (exit=0)
+[codex] cmd done (exit=0)
+[codex] cmd done (exit=0)
+[codex] cmd done (exit=0)
+[codex] ...working
+[codex] cmd started: /bin/bash -lc 'rg -n "3万|8000|7-10g/kg|4-6|能量胶|胸痛|就医|红旗|g/kg|g/h|ml/h" docs/training/04-full-marathon.md'
+[codex] cmd started: /bin/bash -lc 'rg -n "220 - 年龄|220-年龄|±10|10-15|160-170|25次|优秀|Garmin|Polar|Apple|就医|红旗|HRV" docs/advanced/18-heart-rate.md'
+[codex] cmd started: /bin/bash -lc 'rg -n "研究表明|VO2max|数千万|美国跑步协会|固定免责声明|就医|红旗|%|220|160-170|>25|优秀" docs/training/02-5k-10k.md'
+[codex] cmd done (exit=0)
+[codex] cmd done (exit=0)
+[codex] cmd done (exit=0)
+[codex] cmd started: /bin/bash -lc "nl -ba docs/training/02-5k-10k.md | sed -n '70,110p'"
+[codex] cmd started: /bin/bash -lc "nl -ba docs/training/02-5k-10k.md | sed -n '1,70p'"
+[codex] cmd started: /bin/bash -lc "nl -ba docs/training/04-full-marathon.md | sed -n '1,80p'"
+[codex] cmd done (exit=0)
+[codex] cmd done (exit=0)
+[codex] cmd done (exit=0)
+[codex] cmd started: /bin/bash -lc "nl -ba docs/advanced/18-heart-rate.md | sed -n '1,90p'"
+[codex] cmd done (exit=0)
+[codex] 我已定位到三章的关键问题段落。下一步会做三类改动：补章首模板、把高风险医学边界独立成可检索模块、把无依据的量化结论改成“经验区间+需确认/建议后续补参考”。我先精准定位对应行后再打补丁。
+[codex] cmd started: /bin/bash -lc "nl -ba docs/advanced/18-heart-rate.md | sed -n '250,290p'"
+[codex] cmd started: /bin/bash -lc "nl -ba docs/advanced/18-heart-rate.md | sed -n '160,230p'"
+[codex] cmd started: /bin/bash -lc "nl -ba docs/training/04-full-marathon.md | sed -n '440,470p'"
+[codex] cmd started: /bin/bash -lc "nl -ba docs/advanced/18-heart-rate.md | sed -n '350,390p'"
+[codex] cmd started: /bin/bash -lc "nl -ba docs/training/04-full-marathon.md | sed -n '240,280p'"
+[codex] cmd done (exit=0)
+[codex] cmd done (exit=0)
+[codex] cmd done (exit=0)
+[codex] cmd done (exit=0)
+[codex] cmd done (exit=0)
+[codex] ...working
+[codex] 我将开始实际改文件：先改 `docs/training/02-5k-10k.md`，插入章首模板与“风险边界/就医触发/回退规则”，并把两处无来源量化结论降级为“经验表述+建议后续补参考”，最后在文末追加修改摘要。
+[codex] cmd started: /bin/bash -lc 'nl -ba docs/training/02-5k-10k.md | tail -n 40'
+[codex] cmd done (exit=0)
+[codex] ...working
+[codex] ...working
+[codex] cmd started: /bin/bash -lc 'nl -ba docs/training/04-full-marathon.md | tail -n 35'
+[codex] cmd done (exit=0)
+[codex] 接着修改 `docs/training/04-full-marathon.md`：我会加入统一的“风险边界与就医触发”章节，处理关键补给剂量为“经验区间+需确认”，并在文末追加本次修改摘要。
+[codex] ...working
+[codex] `04-full-marathon.md` 的局部标题与我预期不一致，我先重新定位精确段落后再分块补丁，避免误改。
+[codex] cmd started: /bin/bash -lc "nl -ba docs/training/04-full-marathon.md | sed -n '430,470p'"
+[codex] cmd started: /bin/bash -lc "nl -ba docs/training/04-full-marathon.md | sed -n '280,360p'"
+[codex] cmd started: /bin/bash -lc 'rg -n "撞墙|Bonk|Q5：全马比赛需要带多少能量胶|每45至60分钟30至60克|碳水 loading|跑中每小时|前言：马拉松的意义" docs/training/04-full-marathon.md'
+[codex] cmd done (exit=0)
+[codex] cmd done (exit=0)
+[codex] cmd done (exit=0)
+[codex] ...working
+[codex] ...working
+[codex] ...working
+[codex] ...working
+[codex] cmd started: /bin/bash -lc 'nl -ba docs/advanced/18-heart-rate.md | tail -n 35'
+[codex] cmd done (exit=0)
+[codex] 我现在修改 `docs/advanced/18-heart-rate.md`，会补齐章首模板与红旗就医触发、给设备推荐加“截至日期需复核”，并下调关键阈值描述为“估算/经验区间+建议后续补参考”。
+[codex] ...working
+[codex] ...working
+[codex] ...working
+[codex] ...working
+[codex] cmd started: /bin/bash -lc 'tail -n 35 docs/training/04-full-marathon.md'
+[codex] cmd started: /bin/bash -lc 'tail -n 30 docs/training/02-5k-10k.md'
+[codex] cmd started: /bin/bash -lc 'tail -n 35 docs/advanced/18-heart-rate.md'
+[codex] cmd done (exit=0)
+[codex] cmd done (exit=0)
+[codex] cmd done (exit=0)
+[codex] cmd started: /bin/bash -lc 'git status --short'
+[codex] cmd done (exit=0)
+[codex] ...working
+[codex] 三个目标章节已完成修改。我将按你要求生成 `changelogs_codex/2026-03-02T235955.md`，包含“改了什么、为什么、提升了 rubric 哪项、待确认项”，并只记录本次计划涉及的三章。
+[codex] cmd started: /bin/bash -lc "cat > changelogs_codex/2026-03-02T235955.md <<'EOF'
+# 变更记录（2026-03-02T235955）
+
+## 范围
+- 严格按计划仅修改以下章节文件：
+  - "'`docs/training/02-5k-10k.md`
+  - `docs/training/04-full-marathon.md`
+  - `docs/advanced/18-heart-rate.md`
+
+## 改了什么
+
+### 1) `docs/training/02-5k-10k.md`
+- 章首新增固定模板：本章目标、适用/不适用人群、固定免责声明、证据状态。
+- 新增独立模块“风险边界与就医触发（红旗）”。
+- 新增“降负荷回退规则（触发-动作-复评时间窗）”表格。
+- 将无来源量化表达改为条件化表述：
+  - “5K参与人数规模”改为不直接给统一数字，并标注“建议后续补参考”。
+  - “8周间歇训练提升 VO2max 5%-15%”改为“通常可改善，幅度个体差异大，建议后续补参考”。
+- 章节末尾追加“本次修改摘要（4条）”。
+
+### 2) `docs/training/04-full-marathon.md`
+- 章首新增固定模板：本章目标、适用/不适用人群、固定免责声明、证据状态。
+- 将前言中的“心脏跳动约3万次/输送约8000升血液”改为非定量风险描述，并标注“建议后续补参考”。
+- 对营养补给参数统一补充单位与证据边界：
+  - 强调 `g/kg`、`g/h`、`ml/h` 的使用语义。
+  - 对 `30-60g/h`、`7-10g/kg` 等写明“经验区间，建议后续补参考”。
+- 新增独立模块“风险边界与就医触发（红旗）”与“降负荷回退规则”。
+- 将“建议4-6个能量胶”改为“常见经验区间（建议后续补参考）”。
+- 章节末尾追加“本次修改摘要（4条）”。
+
+### 3) `docs/advanced/18-heart-rate.md`
+- 章首新增固定模板：本章目标、适用/不适用人群、固定免责声明、证据状态。
+- 新增“风险边界与就医触发（红旗）”模块（仅定义触发，不做诊断）。
+- 将“220-年龄”与误差相关描述降级为“粗略估算/常见个体差异”，并标注“建议后续补参考”。
+- 将心率恢复分档从固定阈值（如 `>25`）改为趋势化表述；测试方法从固定“160-170”改为“Z3-Z4 中高强度稳定状态”。
+- 设备推荐新增时效标记：“截至 2026-03-02，需复核具体型号、价格与地区可用性”。
+- 章节末尾追加“本次修改摘要（5条）”。
+
+## 为什么这样改
+- 对齐计划要求：先补结构模板，再集中补安全边界，再处理无证据量化主张。
+- 遵守限制：不新增未经证实研究结论；涉及阈值/剂量均改为经验区间并提示“建议后续补参考”。
+- 提升可执行性：加入触发-动作-复评规则，降低读者在疲劳/不适场景下的决策成本。
+
+## 对 rubric 的提升
+- 结构清晰度：三章均补齐章首模板，并新增独立可检索的风险章节。
+- 准确性与证据：关键“研究表明/百分比/阈值/剂量”改为条件化或经验区间表达，并标注待补参考。
+- 风险与医疗边界：三章均加入固定免责声明 + 红旗就医触发条件。
+- 可执行性：2章训练文新增降负荷回退规则（触发-动作-复评）。
+- 时间敏感规则：心率设备信息增加“截至日期，需复核”。
+
+## 仍待确认
+1. 是否要求将“固定免责声明”统一为全书同一句并跨章批量替换。
+2. `g/h`、`ml/h` 是否需要进一步给出分温度/分体重的个体化算法（当前仅保留经验区间）。
+3. 心率设备推荐是否需要按中国区可购买性与价格做本地化排序。
+4. 本次计划文件 `plans_codex/2026-03-02T235955-plan.md` 原文件缺失，本次依据同运行日志恢复执行；是否需要补回该计划文件归档。
+EOF'
+[codex] cmd done (exit=0)
+[codex] 变更日志已写入。最后我会快速核对三章是否都包含“本次修改摘要”、并确认仅触及计划指定的章节文件与目标 changelog 文件。
+[codex] cmd started: /bin/bash -lc 'ls -l changelogs_codex/2026-03-02T235955.md'
+[codex] cmd started: /bin/bash -lc 'rg -n "## 本次修改摘要|## 风险边界与就医触发|固定免责声明|建议后续补参考" docs/training/02-5k-10k.md docs/training/04-full-marathon.md docs/advanced/18-heart-rate.md'
+[codex] cmd started: /bin/bash -lc "git diff -- docs/training/02-5k-10k.md docs/training/04-full-marathon.md docs/advanced/18-heart-rate.md changelogs_codex/2026-03-02T235955.md | sed -n '1,260p'"
+[codex] cmd done (exit=0)
+[codex] cmd done (exit=0)
+[codex] cmd done (exit=0)
+[codex] ...working
+[codex] 已按计划执行，且只修改了计划指定的 3 个 `docs/` 章节，并生成了变更记录。
+
+- 已修改：[02-5k-10k.md](/Users/zhaobomin/Documents/projects/running-book/docs/training/02-5k-10k.md)、[04-full-marathon.md](/Users/zhaobomin/Documents/projects/running-book/docs/training/04-full-marathon.md)、[18-heart-rate.md](/Users/zhaobomin/Documents/projects/running-book/docs/advanced/18-heart-rate.md)
+- 每章已在文末追加 `## 本次修改摘要（3-5条）`（见上述三个文件末尾）
+- 医疗/伤病边界与就医触发条件已补齐为独立模块（如 [02-5k-10k.md:31](/Users/zhaobomin/Documents/projects/running-book/docs/training/02-5k-10k.md:31), [04-full-marathon.md:363](/Users/zhaobomin/Documents/projects/running-book/docs/training/04-full-marathon.md:363), [18-heart-rate.md:30](/Users/zhaobomin/Documents/projects/running-book/docs/advanced/18-heart-rate.md:30)）
+- 未引入新的未经证实数据；关键量化处已改为条件化表达并标注“建议后续补参考”
+
+变更记录已输出到：
+- [2026-03-02T235955.md](/Users/zhaobomin/Documents/projects/running-book/changelogs_codex/2026-03-02T235955.md)
+
+另外说明：原计划文件 `plans_codex/2026-03-02T235955-plan.md` 在仓库中缺失，本次严格依据同 run 日志恢复出的计划内容执行。
+[0;32m==> [40_review] re-score chapters[0m
+[codex] 我会先读取 `rubric.md` 并识别“今天有修改”的章节文件，然后按 rubric 逐章打分并把结果追加到 `changelogs_codex/2026-03-02T235955.md` 末尾。接下来先快速扫描仓库与变更记录。
+[codex] cmd started: /bin/bash -lc 'pwd && ls -la'
+[codex] cmd started: /bin/bash -lc 'rg --files'
+[codex] cmd done (exit=0)
+[codex] cmd done (exit=0)
+[codex] cmd started: /bin/bash -lc 'git status --short'
+[codex] cmd done (exit=0)
+[codex] 我已经定位到今天改动的章节主要是 6 个 `docs/...` 文件。现在先读取 `rubric.md` 和目标 changelog 的现有格式，再逐章评分并写入。
+[codex] cmd started: /bin/bash -lc "sed -n '1,220p' rubric.md"
+[codex] cmd done (exit=0)
+[codex] cmd started: /bin/bash -lc "sed -n '1,260p' changelogs_codex/2026-03-02T235955.md"
+[codex] cmd done (exit=0)
+[codex] cmd started: /bin/bash -lc "for f in docs/advanced/18-heart-rate.md docs/advanced/20-weather.md docs/nutrition/14-diet.md docs/training/01-beginner.md docs/training/02-5k-10k.md docs/training/04-full-marathon.md; do echo '===== '"'$f; sed -n '"'1,260p' \""'$f"; done'
+[codex] cmd done (exit=0)
+[codex] 我已经拿到量表和章节文本，下一步会针对 6 个章节抽取关键证据点（免责声明、红旗就医、回退规则、无来源量化等）来统一打分，避免主观漂移。随后直接把评分结果追加进目标 changelog。
+[codex] cmd started: /bin/bash -lc "sed -n '1,220p' docs/training/01-beginner.md"
+[codex] cmd started: /bin/bash -lc "sed -n '1,220p' docs/training/02-5k-10k.md"
+[codex] cmd done (exit=0)
+[codex] cmd done (exit=0)
+[codex] cmd started: /bin/bash -lc "for f in docs/advanced/18-heart-rate.md docs/advanced/20-weather.md docs/nutrition/14-diet.md docs/training/01-beginner.md docs/training/02-5k-10k.md docs/training/04-full-marathon.md; do echo '===== '"'$f; echo '"'-- lines:'; wc -l \""'$f"; echo '"'-- key markers'; rg -n \"固定免责声明|边界声明|非医疗建议|就医|红旗|回退|降负荷|研究表明|数据显示|%|g/kg|g/h|ml/h|截至\" \""'$f" | sed -n '"'1,120p'; done"
+[codex] cmd done (exit=0)
+[codex] ...working
+[codex] 我准备直接在 `changelogs_codex/2026-03-02T235955.md` 末尾追加“0-5分重评分”区块，覆盖今天已修改的 6 个章节，并按你要求给出每章维度分数、证据说明和下一步建议。追加后我会再核对末尾内容。
+[codex] cmd started: /bin/bash -lc "cat >> changelogs_codex/2026-03-02T235955.md <<'EOF'
+
+## 重新评分（按 "'`rubric.md`，0-5分，针对 2026-03-02 当日已修改章节）
+
+### `docs/advanced/18-heart-rate.md`
+- 结构清晰度：4.5/5
+- 可执行性：4.0/5
+- 准确性与证据：2.0/5
+- 风险与医疗边界：4.5/5
+- 术语一致性：4.0/5
+- 重复度与冗余：3.0/5
+- 读者收益与适配：4.0/5
+
+证据说明：章首已补齐“目标/适用与不适用/固定免责声明/证据状态”，并新增“红旗就医”模块；训练区间、周分配、设备时效（截至 2026-03-02）均可直接执行。但文内仍存在大量无来源阈值与比例（如 Z 区间百分比、80/20、漂移比例、比赛区间），且多处区间表反复出现，造成证据维度与冗余维度扣分。
+
+下一步建议：
+1. 为关键阈值补一手来源（区间模型、80/20、心率漂移、恢复指标）。
+2. 合并重复区间表，保留“主表+应用表”，其余改为引用跳转。
+3. 增加“异常读数处理流程图”（设备误差排查 -> 降负荷 -> 就医）。
+4. 给出与其他章节一致的单位/术语索引（如 %HRmax 与 HRR 的并行使用边界）。
+
+### `docs/advanced/20-weather.md`
+- 结构清晰度：4.0/5
+- 可执行性：4.5/5
+- 准确性与证据：1.5/5
+- 风险与医疗边界：4.5/5
+- 术语一致性：3.5/5
+- 重复度与冗余：3.5/5
+- 读者收益与适配：4.5/5
+
+证据说明：已建立“使用边界与目标”“天气决策四档”“红旗就医”，并给出高温/低温/雨天/风/海拔的可执行调整表，执行路径清楚。主要短板是大量具体阈值和百分比（温湿度配速修正、风阻影响、高海拔表现下降等）未附来源，且指标体系跨段较多（温度、风级、AQI、海拔）缺统一证据分级说明。
+
+下一步建议：
+1. 给所有关键阈值增加来源或证据等级标签（A/B/C）。
+2. 增加“新手默认保守参数”一页，避免多表切换。
+3. 统一风速表达（优先 `km/h`，风级仅作对照）。
+4. 将不同天气下的“降负荷幅度”收敛为一套可复用规则。
+
+### `docs/nutrition/14-diet.md`
+- 结构清晰度：4.5/5
+- 可执行性：4.5/5
+- 准确性与证据：2.5/5
+- 风险与医疗边界：5.0/5
+- 术语一致性：4.5/5
+- 重复度与冗余：4.0/5
+- 读者收益与适配：4.5/5
+
+证据说明：本章已具备边界声明、风险与红旗、补给回退规则（不耐受时减量/停用/回退），并把跑中补给统一到 `g/h` 与 `ml/h`，执行性显著提升。仍有较多“需确认”数值（宏量比例、补液、咖啡因、loading）未落到具体参考文献，导致准确性分受限。
+
+下一步建议：
+1. 优先补齐高风险数值来源（补液、钠、咖啡因、碳水 loading）。
+2. 增加“体重/天气/时长”三变量补给计算示例。
+3. 在 FAQ 与正文间去重，保留一处主口径。
+4. 新增“禁忌人群快速分流卡片”（肾病/糖代谢异常/低钠史）。
+
+### `docs/training/01-beginner.md`
+- 结构清晰度：4.0/5
+- 可执行性：4.5/5
+- 准确性与证据：2.0/5
+- 风险与医疗边界：4.5/5
+- 术语一致性：4.0/5
+- 重复度与冗余：3.5/5
+- 读者收益与适配：5.0/5
+
+证据说明：章节提供了完整的 8 周跑走进阶、清晰的回退规则（连续两次失败即回退/异常疲劳减量）和红旗就医触发，对新手可直接落地；并给出高风险读者保守节奏（每 2 周前进 1 周）。但“研究表明”及多项百分比/时间窗仍缺来源，且叙述性段落较长、局部信息重复，影响证据与冗余评分。
+
+下一步建议：
+1. 为 WHO 建议、伤病风险相关表述补标准来源。
+2. 把超长叙述段改成“规则卡+示例”，提升检索效率。
+3. 增加“每周自检清单”（疼痛、睡眠、静息心率、完成度）。
+4. 在章节末补“失败案例-回退示例”以强化执行一致性。
+
+### `docs/training/02-5k-10k.md`
+- 结构清晰度：4.5/5
+- 可执行性：4.5/5
+- 准确性与证据：2.5/5
+- 风险与医疗边界：4.5/5
+- 术语一致性：4.0/5
+- 重复度与冗余：3.5/5
+- 读者收益与适配：4.5/5
+
+证据说明：已补齐章首模板，新增“红旗”与“触发-动作-复评”回退表，训练周计划与配速区间可直接执行；并将部分高风险量化表述改为条件化表达。当前主要问题是仍有较多无来源心率区间/比例/减量幅度，且 5K 与 10K 的训练原理段存在较高相似度。
+
+下一步建议：
+1. 为核心阈值（心率%、减量%、周增量）补来源或标注证据等级。
+2. 把 5K/10K 共性原理抽为“共享模块”，减少近重复。
+3. 增加“赛前一周异常状态应急分支”（失眠/天气突变/轻伤）。
+4. 提供按能力分层的默认配速计算表（新手/进阶/高手）。
+
+### `docs/training/04-full-marathon.md`
+- 结构清晰度：4.5/5
+- 可执行性：4.5/5
+- 准确性与证据：2.0/5
+- 风险与医疗边界：5.0/5
+- 术语一致性：4.5/5
+- 重复度与冗余：3.5/5
+- 读者收益与适配：4.5/5
+
+证据说明：章首模板、固定免责声明、红旗就医与“降负荷回退规则”已齐备；16 周周期化计划和 `g/kg`、`g/h`、`ml/h` 单位说明使执行性较强。扣分主要来自多处无来源量化主张（80/20、10%增量、减量周比例、补给剂量与恢复窗口）以及叙述与 FAQ 局部重复。
+
+下一步建议：
+1. 按优先级补证据：训练负荷规则 > 营养剂量 > 比赛策略阈值。
+2. 将 FAQ 与正文重复内容合并，保留主叙事唯一口径。
+3. 增加“不同完赛目标（完赛/破4/破330）”的分层周计划参数。
+4. 加入“高温赛日与补给失败”应急流程（降配速/降负荷/退赛边界）。
+EOF'
+[codex] cmd done (exit=0)
+[codex] cmd started: /bin/bash -lc 'tail -n 220 changelogs_codex/2026-03-02T235955.md'
+[codex] cmd done (exit=0)
+[codex] 已完成，并已追加到文件末尾：
+
+- [changelogs_codex/2026-03-02T235955.md](/Users/zhaobomin/Documents/projects/running-book/changelogs_codex/2026-03-02T235955.md)
+
+本次按 `rubric.md` 的 7 个维度，用 `0-5` 分对今天修改的 6 个章节逐章重评；每章均包含：
+- 各维度分数
+- 1 段证据说明
+- 下一步建议（每章 4 条，均不超过 5 条）
+[0;32m==> [50_check] run checks[0m
+[check] empty headings
+
+[check] leftover TODO
+
+[check] repeated disclaimer count (rough)
+5
+[0;32m==> [60_finalize] summary[0m
+[1;33m==> git operations disabled (no add/commit)[0m
+[0;32m==> Done: run=2026-03-02T235955[0m
+ - plan: plans_codex/2026-03-02T235955-plan.md
+ - changelog: changelogs_codex/2026-03-02T235955.md
+ - check: reports_codex/2026-03-02T235955-check.json
+ - summary: reports_codex/2026-03-02T235955-summary.md
+ - log: logs_codex/2026-03-02T235955-daily.log
