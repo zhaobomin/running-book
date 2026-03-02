@@ -13,7 +13,26 @@ init_tasks() {
 
 extract_tasks() {
     local output="$1"
-    echo "$output" | grep -E "^\s*[-*]\s+" | sed 's/^\s*[-*]\s*//' | sed 's/\[x\]//' | sed 's/\[ \]//' | sed 's/^/"/' | sed 's/$/",/' | sed '$s/,$//'
+    
+    # 提取所有可能的任务格式
+    echo "$output" | grep -E '^(\s*[-*]\s+|\s*\d+[.)]\s+|\s*\[ \]\s+|\s*任务\s*\d*[:：]?\s*|\s*子任务\s*[:：]?\s*)' | \
+        sed 's/^\s*[-*]\s*//' | \
+        sed 's/^\s*\d\+[.)]\s*//' | \
+        sed 's/^\s*\[ \]\s*//' | \
+        sed 's/^\s*任务\s*\d*[:：]?\s*//' | \
+        sed 's/^\s*子任务\s*[:：]?\s*//' | \
+        sed 's/^/"/' | \
+        sed 's/$/",/' | \
+        sed '$s/,$//'
+    
+    # 如果没有匹配到，尝试提取所有以连字符或星号开头的行
+    if [ $? -ne 0 ]; then
+        echo "$output" | grep -E '^\s*[-*]\s+' | \
+            sed 's/^\s*[-*]\s*//' | \
+            sed 's/^/"/' | \
+            sed 's/$/",/' | \
+            sed '$s/,$//'
+    fi
 }
 
 prepend_tasks() {

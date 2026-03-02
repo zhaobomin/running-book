@@ -41,24 +41,45 @@ def extract_tasks(text):
     """从文本中提取任务"""
     tasks = []
     
+    # 更灵活的任务提取模式
     patterns = [
-        r'^\s*[-*]\s+(.+)$',
-        r'^\s*\d+[.)]\s+(.+)$',
-        r'^\s*\[ \]\s+(.+)$',
+        r'^\s*[-*]\s+(.+)$',               # - 或 * 开头
+        r'^\s*\d+[.)]\s+(.+)$',              # 数字编号
+        r'^\s*\[ \]\s+(.+)$',               # [ ] 待办
+        r'^\s*任务\s*\d*[:：]?\s*(.+)$',       # 任务：开头
+        r'^\s*子任务\s*[:：]?\s*(.+)$',      # 子任务：开头
     ]
     
-    for line in text.split('\n'):
+    # 提取包含任务的区块
+    lines = text.split('\n')
+    in_task_section = False
+    
+    for line in lines:
         line = line.strip()
         if not line:
             continue
         
+        # 检测任务区块开始
+        if any(keyword in line for keyword in ['任务', '子任务', '待办', 'TODO']):
+            in_task_section = True
+        
+        # 尝试匹配任务格式
         for pattern in patterns:
             match = re.match(pattern, line)
             if match:
                 task = match.group(1).strip()
-                if task and not task.startswith('#'):
+                if task and not task.startswith('#') and not task.startswith('//'):
                     tasks.append(task)
                 break
+    
+    # 如果没有提取到任务，尝试提取所有以连字符或星号开头的行
+    if not tasks:
+        for line in lines:
+            line = line.strip()
+            if line.startswith('- ') or line.startswith('* '):
+                task = line[2:].strip()
+                if task and not task.startswith('#'):
+                    tasks.append(task)
     
     return tasks
 
